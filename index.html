@@ -171,7 +171,7 @@ body{font-family:'Courier New',monospace;background:var(--bg0);color:var(--txt);
       <div class="ct">API 設定 OPENAI</div>
       <div class="ig">
         <div class="il">OPENAI API KEY &nbsp;<span style="color:#555">(sk-...)</span></div>
-        <input class="if" type="password" id="apiK" placeholder="sk-proj-...">
+        <input class="if" type="text" id="apiK" placeholder="sk-proj-...">
       </div>
       <div class="ig">
         <div class="il">語言 LANGUAGE</div>
@@ -193,7 +193,6 @@ body{font-family:'Courier New',monospace;background:var(--bg0);color:var(--txt);
         <div class="il">Whisper 提示詞（可選）</div>
         <input class="if" type="text" id="wPr" placeholder="繁體中文、人名、專業術語...">
       </div>
-      <button class="btn btn-s" onclick="testAPI()" style="font-size:10px;margin-top:2px">🔑 測試 API Key</button>
       <div class="eb" id="eb"></div>
     </div>
 
@@ -458,34 +457,13 @@ function setVol(v){aud.volume=v/100;}
 document.getElementById('ww').addEventListener('click',e=>{if(!aud.duration)return;const r=e.currentTarget.getBoundingClientRect();aud.currentTime=(e.clientX-r.left)/r.width*aud.duration;});
 function stamp(){const t=aud.currentTime||0;const m=String(Math.floor(t/60)).padStart(2,'0');const s=String(Math.floor(t%60)).padStart(2,'0');insC(editor,`\n* (${m}:${s}) `);}
 
-// ── TEST API ──
-async function testAPI(){
-  const key=document.getElementById('apiK').value.trim();
-  const eb=document.getElementById('eb');eb.classList.remove('show');
-  if(!key){eb.textContent='請輸入 API Key';eb.style.color='var(--danger)';eb.classList.add('show');return;}
-  log('[ TEST ] 驗證 API Key...','i');
-  try{
-    const r=await fetch('https://api.openai.com/v1/models',{headers:{'Authorization':'Bearer '+key}});
-    if(r.ok){
-      log('[ OK   ] API Key 有效','s');
-      eb.textContent='✓ API Key 有效';eb.style.color='var(--ok)';eb.classList.add('show');
-    }else{
-      const e=await r.json().catch(()=>({}));
-      throw new Error(e?.error?.message||`HTTP ${r.status}`);
-    }
-  }catch(err){
-    log(`[ ERR  ] ${err.message}`,'er');
-    eb.textContent='✗ '+err.message;eb.style.color='var(--danger)';eb.classList.add('show');
-  }
-}
-
 // ══════════════════════════════════════════════════════
 // MAIN PIPELINE
 // ══════════════════════════════════════════════════════
 async function runPipeline(){
   if(!curFile){log('[ ERR  ] 請先載入音訊','er');return;}
   const key=document.getElementById('apiK').value.trim();
-  if(!key){alert('請輸入 OpenAI API Key');return;}
+  if(!key){log('[ WARN ] 未填入 API Key，請檢查','w');return;}
   isRun=true;aborted=false;
   document.getElementById('runBtn').disabled=true;
   document.getElementById('stopBtn').style.display='flex';
@@ -599,7 +577,7 @@ async function reAnalyze(){
   const raw=rawEd.value.trim();
   if(!raw){log('[ WARN ] 請先執行 Whisper 轉錄或手動輸入逐字稿','w');return;}
   const key=document.getElementById('apiK').value.trim();
-  if(!key){alert('請輸入 OpenAI API Key');return;}
+  if(!key){log('[ WARN ] 未填入 API Key，請檢查','w');return;}
   isRun=true;aborted=false;
   document.getElementById('runBtn').disabled=true;document.getElementById('stopBtn').style.display='flex';
   document.getElementById('progBox').classList.add('show');
@@ -660,12 +638,13 @@ function updStat(){const v=editor.value;document.getElementById('fStat').textCon
 editor.addEventListener('input',updStat);
 document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea,button'))return;if(e.code==='Space'){e.preventDefault();tPlay();}});
 
-// ── 缺失的輔助函數 ──
+// ── 輔助函數 ──
 function fmtB(b){const u=['B','KB','MB','GB'];let v=b,i=0;while(v>=1024&&i<u.length-1){v/=1024;i++;}return Math.round(v*10)/10+u[i];}
 function fmtT(s){const m=Math.floor(s/60);const ss=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
 
 log('[ INIT ] FAES v3.1 就緒','s');
 log('[ INFO ] Whisper STT → GPT-4o 自動情緒/角色/關鍵證據標註','i');
+log('[ INFO ] API KEY 驗證已禁用 — 直接使用','w');
 </script>
 </body>
 </html>
