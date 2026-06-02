@@ -168,10 +168,10 @@ body{font-family:'Courier New',monospace;background:var(--bg0);color:var(--txt);
     </div>
 
     <div class="card">
-      <div class="ct">API 設定 OPENAI</div>
+      <div class="ct">API 設定 OPENAI (可選)</div>
       <div class="ig">
         <div class="il">OPENAI API KEY &nbsp;<span style="color:#555">(sk-...)</span></div>
-        <input class="if" type="text" id="apiK" placeholder="sk-proj-...">
+        <input class="if" type="text" id="apiK" placeholder="sk-proj-... (非必填)">
       </div>
       <div class="ig">
         <div class="il">語言 LANGUAGE</div>
@@ -193,7 +193,6 @@ body{font-family:'Courier New',monospace;background:var(--bg0);color:var(--txt);
         <div class="il">Whisper 提示詞（可選）</div>
         <input class="if" type="text" id="wPr" placeholder="繁體中文、人名、專業術語...">
       </div>
-      <div class="eb" id="eb"></div>
     </div>
 
     <div class="card">
@@ -463,12 +462,10 @@ function stamp(){const t=aud.currentTime||0;const m=String(Math.floor(t/60)).pad
 async function runPipeline(){
   if(!curFile){log('[ ERR  ] 請先載入音訊','er');return;}
   const key=document.getElementById('apiK').value.trim();
-  if(!key){log('[ WARN ] 未填入 API Key，請檢查','w');return;}
   isRun=true;aborted=false;
   document.getElementById('runBtn').disabled=true;
   document.getElementById('stopBtn').style.display='flex';
   document.getElementById('progBox').classList.add('show');
-  document.getElementById('eb').classList.remove('show');
   setPhase(1);
 
   // ── PHASE 1: WHISPER ──
@@ -496,7 +493,6 @@ async function runPipeline(){
     }catch(err){
       if(cell)cell.className='ck fail';
       log(`[ ERR  ] STT 分段 ${i+1}：${err.message}`,'er');
-      showEB(err.message);
     }
   }
 
@@ -519,7 +515,6 @@ async function runPipeline(){
     log('[ P2✓  ] AI 鑑識分析完成','s');setP2(100,'完成');
   }catch(err){
     log(`[ ERR  ] GPT：${err.message}`,'er');
-    showEB('GPT 分析失敗：'+err.message);
     editor.value=raw; // fallback
   }
   finish();
@@ -577,7 +572,6 @@ async function reAnalyze(){
   const raw=rawEd.value.trim();
   if(!raw){log('[ WARN ] 請先執行 Whisper 轉錄或手動輸入逐字稿','w');return;}
   const key=document.getElementById('apiK').value.trim();
-  if(!key){log('[ WARN ] 未填入 API Key，請檢查','w');return;}
   isRun=true;aborted=false;
   document.getElementById('runBtn').disabled=true;document.getElementById('stopBtn').style.display='flex';
   document.getElementById('progBox').classList.add('show');
@@ -588,7 +582,7 @@ async function reAnalyze(){
   const fname=curFile?curFile.name:'音訊';
   const userMsg=`音訊檔案：${fname}${spNote}\n\n【逐字稿】\n${raw}\n\n請依照司法聲學鑑識格式輸出完整報告。`;
   try{await gptStream(key,document.getElementById('gptM').value,userMsg);log('[ P2✓  ] 完成','s');setP2(100,'完成');}
-  catch(err){log(`[ ERR  ] ${err.message}`,'er');showEB(err.message);}
+  catch(err){log(`[ ERR  ] ${err.message}`,'er');}
   finish();
 }
 
@@ -597,7 +591,6 @@ function doStop(){aborted=true;log('[ STOP ] 中止中...','w');}
 function setPhase(n){document.getElementById('ph1').className='phase'+(n===1?' active':n>1?' done':'');document.getElementById('ph3').className='phase'+(n===2?' active':n>2?' done':'');}
 function setP1(p,t){document.getElementById('pf1').style.width=p+'%';document.getElementById('pt1').textContent=t;}
 function setP2(p,t){document.getElementById('pf2').style.width=p+'%';document.getElementById('pt2').textContent=t;}
-function showEB(m){const eb=document.getElementById('eb');eb.textContent=m;eb.style.color='var(--danger)';eb.classList.add('show');}
 
 // ── CHUNK GRID ──
 function buildCkGrid(n){
@@ -644,7 +637,7 @@ function fmtT(s){const m=Math.floor(s/60);const ss=Math.floor(s%60);return Strin
 
 log('[ INIT ] FAES v3.1 就緒','s');
 log('[ INFO ] Whisper STT → GPT-4o 自動情緒/角色/關鍵證據標註','i');
-log('[ INFO ] API KEY 驗證已禁用 — 直接使用','w');
+log('[ INFO ] API KEY 驗證完全禁用 — 無需填入也可使用','w');
 </script>
 </body>
 </html>
