@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>司法聲學鑑識系統 FAES v3.1</title>
+<meta name="description" content="專業級音訊鑑識與逐字稿還原系統 — Whisper STT + GPT-4o 自動情緒標註">
+<style>
+:root{--bg0:#07090f;--bg1:#0c1220;--bg2:#111a2e;--accent:#00d4ff;--accent2:#0077cc;--warn:#ff7700;--danger:#ff2244;--ok:#00cc88;--txt:#ddeeff;--txt2:#6688aa;--border:#1a2a44}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Courier New',monospace;background:var(--bg0);color:var(--txt);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.hdr{background:linear-gradient(135deg,#040810,#0a1830);border-bottom:2px solid var(--accent);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.hdr-icon{width:42px;height:42px;background:linear-gradient(135deg,#001833,#003366);border:1.5px solid var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hdr-t{font-size:16px;font-weight:bold;color:var(--accent);letter-spacing:2px}
+.hdr-s{font-size:9px;color:var(--txt2);letter-spacing:2px;margin-top:2px}
+.sys-ok{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ok)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.main{display:flex;flex:1;overflow:hidden}
+.lp{width:310px;flex-shrink:0;background:var(--bg1);border-right:1px solid var(--border);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.rp{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px}
+.ct{font-size:9px;letter-spacing:3px;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ct::before{content:'';width:2px;height:10px;background:var(--accent);border-radius:1px;flex-shrink:0}
+.upz{border:2px dashed var(--border);border-radius:5px;padding:18px 12px;text-align:center;cursor:pointer;transition:.2s;position:relative}
+.upz:hover,.upz.drag-over{border-color:var(--accent);background:rgba(0,212,255,.04)}
+.upz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.up-ico{font-size:28px;margin-bottom:6px;opacity:.5}
+.up-txt{font-size:11px;color:var(--txt2);line-height:1.6}
+.up-txt strong{color:var(--accent)}
+.fi{display:none;background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);border-radius:4px;padding:8px;font-size:10px;margin-top:7px}
+.fi.show{display:block}
+.fr{display:flex;justify-content:space-between;margin-bottom:2px;color:var(--txt2)}
+.fr span:last-child{color:var(--txt)}
+.apl{display:none}.apl.show{display:block}
+.ww{height:58px;background:rgba(0,0,0,.4);border-radius:4px;position:relative;cursor:pointer;margin-bottom:8px;overflow:hidden}
+#wfc{width:100%;height:100%}
+.ph2{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);left:0;pointer-events:none}
+.pc{display:flex;align-items:center;gap:8px}
+.pb{width:30px;height:30px;border-radius:50%;background:var(--accent);border:none;color:#000;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.pb:hover{background:var(--accent2);transform:scale(1.05)}
+.td{font-size:10px;color:var(--txt2);flex:1}
+.ss{font-size:10px;background:var(--bg0);border:1px solid var(--border);color:var(--txt);padding:2px 6px;border-radius:3px;cursor:pointer}
+.sl{width:100%;accent-color:var(--accent);margin-top:5px}
+.ig{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.il{font-size:9px;color:var(--txt2);letter-spacing:1px}
+.if{background:var(--bg0);border:1px solid var(--border);color:var(--txt);padding:6px 9px;border-radius:3px;font-size:11px;font-family:'Courier New',monospace;width:100%;transition:border-color .2s}
+.if:focus{outline:none;border-color:var(--accent)}
+.if::placeholder{color:var(--txt2);opacity:.4}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:3px}
+.si{background:var(--bg0);border:1px solid var(--border);border-radius:3px;padding:6px}
+.sl2{font-size:8px;color:var(--txt2);margin-bottom:2px}
+.sinp{background:transparent;border:none;color:var(--txt);font-size:10px;width:100%;font-family:'Courier New',monospace}
+.sinp:focus{outline:none}
+.btn{padding:8px 12px;border-radius:4px;border:none;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;letter-spacing:1px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.btn-p{background:linear-gradient(135deg,#003d7a,#005fbb);color:#fff;border:1px solid var(--accent)}
+.btn-p:hover:not(:disabled){background:linear-gradient(135deg,#004d99,#0070cc);box-shadow:0 0 15px rgba(0,212,255,.2)}
+.btn-p:disabled{opacity:.3;cursor:not-allowed}
+.btn-s{background:transparent;color:var(--txt2);border:1px solid var(--border)}
+.btn-s:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.btn-s:disabled{opacity:.3;cursor:not-allowed}
+.ac{display:flex;flex-direction:column;gap:6px}
+.phases{display:flex;gap:4px;margin-bottom:6px}
+.phase{flex:1;padding:5px 4px;border-radius:3px;font-size:9px;text-align:center;letter-spacing:1px;border:1px solid var(--border);color:var(--txt2);transition:.3s}
+.phase.active{border-color:var(--warn);color:var(--warn);background:rgba(255,119,0,.08)}
+.phase.done{border-color:var(--ok);color:var(--ok);background:rgba(0,204,136,.08)}
+.prog{display:none}.prog.show{display:block}
+.pb3{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:5px}
+.pf{height:100%;border-radius:2px;width:0;transition:width .3s}
+.pf.p1{background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.pf.p2{background:linear-gradient(90deg,#7700cc,#cc00ff)}
+.pt{font-size:9px;color:var(--txt2);text-align:center}
+.cg{display:flex;flex-wrap:wrap;gap:2px;margin-top:6px}
+.ck{width:12px;height:12px;border-radius:2px;background:var(--border);transition:.3s}
+.ck.proc{background:var(--warn)}.ck.done{background:var(--ok)}.ck.fail{background:var(--danger)}
+.toolbar{background:var(--bg1);border-bottom:1px solid var(--border);padding:7px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:5px;flex-shrink:0}
+.tl{font-size:8px;color:var(--txt2);letter-spacing:2px}
+.tb{padding:2px 8px;border-radius:3px;border:1px solid;font-size:9px;font-family:'Courier New',monospace;cursor:pointer;transition:.15s}
+.tb:hover{opacity:.75;transform:translateY(-1px)}
+.te{border-color:#b33;color:#f77;background:rgba(170,40,40,.12)}
+.tt{border-color:#44a;color:#88c;background:rgba(60,60,180,.12)}
+.ts{border-color:#a70;color:#fb0;background:rgba(180,120,0,.12)}
+.tv{border-color:#a4a;color:#d7d;background:rgba(160,60,160,.12)}
+.tsp{border-color:#4a7;color:#7d7;background:rgba(50,160,100,.12)}
+.tev{border-color:#cc0;color:#ff0;background:rgba(200,180,0,.12);font-weight:bold}
+.tbg{border-color:#555;color:#999;background:rgba(80,80,80,.1)}
+.editor-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.raw-box{height:120px;background:#050a14;border-bottom:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.raw-hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;border-bottom:1px solid var(--border);font-size:9px;color:var(--txt2);letter-spacing:2px;flex-shrink:0}
+#rawEd{flex:1;background:transparent;color:#7799bb;font-family:'Courier New',monospace;font-size:11px;line-height:1.6;padding:8px 12px;border:none;resize:none;outline:none;overflow-y:auto;white-space:pre-wrap}
+#editor{flex:1;background:var(--bg0);color:var(--txt);font-family:'Courier New',monospace;font-size:13px;line-height:1.85;padding:20px;border:none;resize:none;outline:none;overflow-y:auto;white-space:pre-wrap}
+.foot{background:var(--bg1);border-top:1px solid var(--border);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}
+.fs{font-size:9px;color:var(--txt2)}
+.fa{display:flex;gap:5px}
+.sb{padding:4px 11px;border-radius:3px;border:1px solid var(--accent);color:var(--accent);background:rgba(0,212,255,.07);font-size:9px;font-family:'Courier New',monospace;cursor:pointer;transition:.2s}
+.sb:hover{background:rgba(0,212,255,.16)}
+.log{background:#030507;border-top:1px solid var(--border);height:85px;overflow-y:auto;padding:5px 14px;font-size:10px;font-family:'Courier New',monospace;flex-shrink:0}
+.le{display:flex;gap:8px;padding:1px 0}
+.lt{color:var(--txt2)}.li{color:var(--accent)}.ls{color:var(--ok)}.lw{color:var(--warn)}.ler{color:var(--danger)}
+.mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;align-items:center;justify-content:center}
+.mov.show{display:flex}
+.mo{background:var(--bg2);border:1px solid var(--accent);border-radius:7px;padding:20px;max-width:420px;width:90%}
+.mot{font-size:12px;color:var(--accent);margin-bottom:12px;letter-spacing:2px}
+.moa{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}
+.eb{display:none;background:rgba(255,34,68,.07);border:1px solid rgba(255,34,68,.3);border-radius:4px;padding:8px;font-size:10px;margin-top:6px;word-break:break-all}
+.eb.show{display:block}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg0)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent2)}
+@media(max-width:700px){.main{flex-direction:column}.lp{width:100%;height:auto;overflow:visible}.hdr-t{font-size:13px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-icon">⚖️</div>
+    <div>
+      <div class="hdr-t">FORENSIC ACOUSTIC EXPERT SYSTEM</div>
+      <div class="hdr-s">司法聲學鑑識 · 逐字稿還原 v3.1 · Whisper STT + GPT-4o 自動情緒標註</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+    <div class="sys-ok"><div class="dot"></div>SYSTEM ONLINE</div>
+    <div style="font-size:9px;color:var(--txt2)">① STT 轉錄 → ② AI 鑑識分析</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="lp">
+
+    <div class="card">
+      <div class="ct">音訊載入 AUDIO INPUT</div>
+      <div class="upz" id="upZ">
+        <input type="file" id="fInp" accept="audio/*,.wav,.mp3,.m4a,.aac,.flac,.ogg,.webm,.mp4">
+        <div class="up-ico">🎙️</div>
+        <div class="up-txt">拖曳或點擊選擇音訊檔案<br><strong>WAV · MP3 · M4A · FLAC · AAC · OGG · WEBM</strong><br><span style="font-size:10px;color:#444">大容量檔案串流分段處理，記憶體佔用極低</span></div>
+      </div>
+      <div class="fi" id="fi">
+        <div class="fr"><span>檔案</span><span id="fN">-</span></div>
+        <div class="fr"><span>大小</span><span id="fS">-</span></div>
+        <div class="fr"><span>時長</span><span id="fD">-</span></div>
+        <div class="fr"><span>分段</span><span id="fC">-</span></div>
+      </div>
+    </div>
+
+    <div class="card apl" id="aplCard">
+      <div class="ct">播放器 PLAYER</div>
+      <div class="ww" id="ww"><canvas id="wfc"></canvas><div class="ph2" id="ph2"></div></div>
+      <audio id="aud" style="display:none"></audio>
+      <div class="pc">
+        <button class="pb" id="pBtn" onclick="tPlay()">▶</button>
+        <div class="td"><span id="cT">00:00</span> / <span id="tT">00:00</span></div>
+        <select class="ss" onchange="chSpd(this.value)">
+          <option value="0.5">0.5×</option><option value="0.75">0.75×</option>
+          <option value="1" selected>1×</option><option value="1.25">1.25×</option>
+          <option value="1.5">1.5×</option><option value="2">2×</option>
+        </select>
+      </div>
+      <input type="range" class="sl" id="sk" value="0" min="0" max="100" step="0.01" oninput="seekTo(this.value)">
+      <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+        <span style="font-size:9px;color:var(--txt2)">VOL</span>
+        <input type="range" class="sl" style="margin-top:0" value="100" min="0" max="100" oninput="setVol(this.value)">
+        <button class="sb" onclick="stamp()" style="flex-shrink:0">⏱戳記</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ct">API 設定 OPENAI</div>
+      <div class="ig">
+        <div class="il">OPENAI API KEY &nbsp;<span style="color:#555">(sk-...)</span></div>
+        <input class="if" type="password" id="apiK" placeholder="sk-proj-...">
+      </div>
+      <div class="ig">
+        <div class="il">語言 LANGUAGE</div>
+        <select class="if" id="lang">
+          <option value="zh">中文（繁體/簡體）</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+      <div class="ig">
+        <div class="il">鑑識模型</div>
+        <select class="if" id="gptM">
+          <option value="gpt-4o">GPT-4o（推薦）</option>
+          <option value="gpt-4o-mini">GPT-4o-mini（快速）</option>
+        </select>
+      </div>
+      <div class="ig">
+        <div class="il">Whisper 提示詞（可選）</div>
+        <input class="if" type="text" id="wPr" placeholder="繁體中文、人名、專業術語...">
+      </div>
+      <button class="btn btn-s" onclick="testAPI()" style="font-size:10px;margin-top:2px">🔑 測試 API Key</button>
+      <div class="eb" id="eb"></div>
+    </div>
+
+    <div class="card">
+      <div class="ct">角色設定 VOICE PROFILES</div>
+      <div style="font-size:9px;color:var(--txt2);margin-bottom:6px">可選填，有助 GPT-4o 精準識別說話者</div>
+      <div class="sg">
+        <div class="si"><div class="sl2">角色 A</div><input class="sinp" id="spA" placeholder="服務專員(陳依依)"></div>
+        <div class="si"><div class="sl2">角色 B</div><input class="sinp" id="spB" placeholder="客戶(楊小姐)"></div>
+        <div class="si"><div class="sl2">角色 C</div><input class="sinp" id="spC" placeholder="督導/主管"></div>
+        <div class="si"><div class="sl2">角色 D</div><input class="sinp" id="spD" placeholder="其他"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ct">分段狀態 CHUNKS</div>
+      <div style="font-size:9px;color:var(--txt2)" id="ckLbl">等待載入...</div>
+      <div class="cg" id="ckG"></div>
+    </div>
+
+    <div class="card">
+      <div class="ct">執行 CONTROL</div>
+      <div class="phases">
+        <div class="phase" id="ph1">① STT 轉錄</div>
+        <div class="phase" id="ph3">② AI 鑑識</div>
+      </div>
+      <div class="ac">
+        <button class="btn btn-p" id="runBtn" onclick="runPipeline()" disabled>🔬 開始鑑識分析</button>
+        <div class="prog" id="progBox">
+          <div class="pb3"><div class="pf p1" id="pf1"></div></div>
+          <div class="pt" id="pt1">-</div>
+          <div class="pb3" style="margin-top:4px"><div class="pf p2" id="pf2"></div></div>
+          <div class="pt" id="pt2">-</div>
+        </div>
+        <button class="btn btn-s" id="stopBtn" onclick="doStop()" style="display:none">⏹ 停止</button>
+        <button class="btn btn-s" onclick="reAnalyze()" id="reBtn">↺ 重新 AI 分析（不重跑 STT）</button>
+        <button class="btn btn-s" onclick="clearAll()">🗑 清除</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="rp">
+    <div class="toolbar">
+      <span class="tl">手動標籤:</span>
+      <button class="tb te" onclick="ins('[情緒:憤怒]')">憤怒</button>
+      <button class="tb te" onclick="ins('[情緒:無奈]')">無奈</button>
+      <button class="tb te" onclick="ins('[情緒:防衛]')">防衛</button>
+      <button class="tb te" onclick="ins('[情緒:崩潰]')">崩潰</button>
+      <button class="tb te" onclick="ins('[情緒:讚賞]')">讚賞</button>
+      <button class="tb tt" onclick="ins('[語氣:疑問]')">疑問</button>
+      <button class="tb tt" onclick="ins('[語氣:質疑]')">質疑</button>
+      <button class="tb tt" onclick="ins('[語氣:不信任]')">不信任</button>
+      <button class="tb tt" onclick="ins('[語氣:驚訝]')">驚訝</button>
+      <button class="tb ts" onclick="ins('[語速:急促]')">急促</button>
+      <button class="tb ts" onclick="ins('[語速:緩慢]')">緩慢</button>
+      <button class="tb tv" onclick="ins('[音量:大吼]')">大吼</button>
+      <button class="tb tv" onclick="ins('[音量:變小/心虛]')">心虛</button>
+      <button class="tb tsp" onclick="ins('[異常斷句]')">斷句</button>
+      <button class="tb tsp" onclick="ins('[沈默:約X秒]')">沈默</button>
+      <button class="tb tsp" onclick="ins('[聽不清楚]')">不清</button>
+      <button class="tb tev" onclick="ins('[關鍵證據]')">⚠ 關鍵</button>
+      <button class="tb tbg" onclick="openBg()">背景音</button>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="raw-box">
+        <div class="raw-hdr">
+          <span>① WHISPER 原始逐字稿</span>
+          <span id="rawStat" style="color:var(--txt2)">待轉錄</span>
+        </div>
+        <textarea id="rawEd" placeholder="Whisper STT 原始輸出（可手動修改後點「重新 AI 分析」）..."></textarea>
+      </div>
+      <textarea id="editor" placeholder="【司法聲學鑑識報告】
+
+▌ 系統流程：
+  ① Whisper-1 STT — 將音訊轉為原始時間戳逐字稿
+  ② GPT-4o 鑑識分析 — 自動識別角色、情緒、語氣、語速、
+     音量、背景音，輸出證據級格式報告
+
+▌ 自動標註項目（GPT-4o 自動加入，無需手動）：
+  [情緒:X] [語氣:X] [語速:X] [音量:X]
+  [背景音: X] [沈默:約X秒] [關鍵證據]
+
+▌ 快速開始：
+  1. 上傳音訊 → 2. 填入 OpenAI API Key → 3. 點擊「開始鑑識分析」"></textarea>
+    </div>
+
+    <div class="foot">
+      <div class="fs" id="fStat">就緒 · FAES v3.1</div>
+      <div class="fa">
+        <button class="sb" onclick="genHdr()">生成表頭</button>
+        <button class="sb" onclick="copyAll()">複製全文</button>
+        <button class="sb" onclick="dlTxt()">匯出 .txt</button>
+        <button class="sb" onclick="dlMd()">匯出 .md</button>
+      </div>
+    </div>
+
+    <div class="log" id="logPan">
+      <div class="le"><span class="lt">00:00:00</span><span class="li">[ SYSTEM ] FAES v3.1 就緒 · Whisper STT + GPT-4o 自動鑑識標註</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="mov" id="bgMov">
+  <div class="mo">
+    <div class="mot">🎵 插入背景音標註</div>
+    <div class="ig"><div class="il">描述</div><input class="if" type="text" id="bgI" placeholder="辦公室撥號音、施工鑽孔聲..."></div>
+    <div class="moa">
+      <button class="sb" onclick="confirmBg()">插入</button>
+      <button class="sb" style="border-color:var(--border);color:var(--txt2)" onclick="closeBg()">取消</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// FORENSIC SYSTEM PROMPT — 嚴格遵照範例輸出格式
+// ══════════════════════════════════════════════════════
+const FORENSIC_PROMPT = `你現在是「司法聲學鑑識專家 (Forensic Acoustic Expert)」。
+你的唯一任務是將音訊逐字稿（已含時間戳）轉換為「具法律效力的證據級鑑識報告」。
+
+【角色識別規則】
+- 依聲音特徵（男/女）與對話內容邏輯精準識別角色
+- 自稱職稱者（如「我是服務專員」）即標示該角色
+- 提及第三人時清楚標示，不混淆為說話者本人
+- 若有督導/主管在通話後出現，正確標示
+
+【絕對逐字規則】
+- 保留所有「呃、那個、就是、嗯」、結巴、重複字
+- 無法辨識標 [聽不清楚]，禁止編造
+- 禁止修正語病或刪減任何字詞
+
+【八大維度自動標註 — 根據語音內容判斷後自動插入】
+請仔細分析每句話的情緒與語氣特徵，主動加上以下標籤：
+- 情緒：[情緒:憤怒] [情緒:無奈] [情緒:防衛] [情緒:崩潰] [情緒:讚賞] [情緒:高昂]
+- 語氣：[語氣:疑問] [語氣:質疑] [語氣:不信任] [語氣:驚訝] [語氣:冷淡] [語氣:擔心] [語氣:猶豫] [語氣:撒嬌/要求]
+- 語速：[語速:急促] [語速:緩慢] [語速:稍快]
+- 音量：[音量:大吼] [音量:變小/心虛] [音量:尖銳]
+- 斷句：[異常斷句]（異常語法停頓）
+- 沈默：[沈默:約X秒]（超過2秒靜音）
+- 關鍵：[關鍵證據]（涉及責任歸屬、SOP、關鍵事實）
+- 背景音：[背景音: 描述]
+
+【輸出格式 — 嚴格遵守以下格式，每句獨立一行】
+
+先輸出表頭：
+【語音轉錄逐字稿】
+*【司法聲學鑑識報告】 音訊檔案：[檔名] (片段擷取)
+角色識別：
+[角色A(姓名/特徵)]：角色描述
+[角色B(姓名/特徵)]：角色描述
+
+---
+
+然後每句對話獨立一行，格式如下：
+* (MM:SS) [背景音: 描述]
+* (MM:SS) 角色名稱： 對話內容 [標註]
+
+【重要規則】
+1. 每句必須以 * (MM:SS) 開頭
+2. 絕對禁止將多句合併在同一行
+3. 背景音單獨佔一行
+4. 標籤插在句子自然停頓處或句尾
+5. 一句話可同時有多個標籤
+
+【輸出範例（請嚴格模仿）】
+* (00:00) [背景音：辦公室環境音，微弱電話撥號聲]
+* (00:04) 服務專員(陳依依)： 喂，你好，請問是住在海洋都心的楊小姐嗎？
+* (00:08) 客戶(楊小姐)： 欸，是。
+* (00:43) 客戶(楊小姐)： 我家的冷氣，這個要怎麼看？ [語氣:疑問]
+* (02:38) 客戶(楊小姐)： 欸，沒有欸，不知道冷氣可以洗。 [語氣:驚訝]
+* (03:04) 客戶(楊小姐)： 有，有小孩。 [關鍵證據]
+* (09:32) 客戶(楊小姐)： 欸那你們的技師是你們外面配合的廠商嗎？ [語氣:質疑]`;
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let curFile=null,objURL=null,isPlay=false,isRun=false,aborted=false,numCk=0;
+const CHUNK=20*1024*1024;
+const aud=document.getElementById('aud');
+const editor=document.getElementById('editor');
+const rawEd=document.getElementById('rawEd');
+
+// ── LOG ──
+function log(m,t='i'){
+  const p=document.getElementById('logPan'),ts=new Date().toTimeString().slice(0,8);
+  const e=document.createElement('div');e.className='le';
+  e.innerHTML=`<span class="lt">${ts}</span><span class="l${t}">${esc(m)}</span>`;
+  p.appendChild(e);p.scrollTop=p.scrollHeight;
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ── FILE UPLOAD ──
+const upZ=document.getElementById('upZ'),fInp=document.getElementById('fInp');
+upZ.addEventListener('dragover',e=>{e.preventDefault();upZ.classList.add('drag-over');});
+upZ.addEventListener('dragleave',()=>upZ.classList.remove('drag-over'));
+upZ.addEventListener('drop',e=>{e.preventDefault();upZ.classList.remove('drag-over');if(e.dataTransfer.files[0])loadF(e.dataTransfer.files[0]);});
+fInp.addEventListener('change',e=>{if(e.target.files[0])loadF(e.target.files[0]);});
+
+function loadF(file){
+  if(!file.type.startsWith('audio/')&&!/\.(wav|mp3|m4a|aac|flac|ogg|webm|mp4|mpeg|mpga)$/i.test(file.name)){
+    log('[ ERR  ] 不支援的格式','er');return;
+  }
+  if(objURL){URL.revokeObjectURL(objURL);objURL=null;}
+  curFile=file;objURL=URL.createObjectURL(file);
+  aud.src=objURL;aud.load();
+  numCk=Math.ceil(file.size/CHUNK);
+  document.getElementById('fN').textContent=file.name.length>24?file.name.slice(0,22)+'…':file.name;
+  document.getElementById('fS').textContent=fmtB(file.size);
+  document.getElementById('fC').textContent=numCk+' 段';
+  document.getElementById('fi').classList.add('show');
+  document.getElementById('aplCard').classList.add('show');
+  document.getElementById('runBtn').disabled=false;
+  buildCkGrid(numCk);
+  log(`[ LOAD ] ${file.name} (${fmtB(file.size)})`,'i');
+  log('[ MEM  ] ObjectURL 串流，Blob.slice() 零複製分段','s');
+  aud.addEventListener('loadedmetadata',()=>{
+    const d=aud.duration;
+    document.getElementById('fD').textContent=fmtT(d);
+    document.getElementById('tT').textContent=fmtT(d);
+    document.getElementById('sk').max=d;
+    drawWfm();
+  },{once:true});
+}
+
+// ── WAVEFORM ──
+async function drawWfm(){
+  const cvs=document.getElementById('wfc'),wrap=document.getElementById('ww');
+  cvs.width=wrap.clientWidth;cvs.height=wrap.clientHeight;
+  const ctx=cvs.getContext('2d'),W=cvs.width,H=cvs.height;
+  try{
+    const ac=new(window.AudioContext||window.webkitAudioContext)();
+    const buf=await ac.decodeAudioData(await curFile.slice(0,Math.min(curFile.size,2e6)).arrayBuffer());
+    const d=buf.getChannelData(0),step=Math.ceil(d.length/W);
+    ctx.clearRect(0,0,W,H);
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'rgba(0,212,255,.8)');g.addColorStop(.5,'rgba(0,120,200,.9)');g.addColorStop(1,'rgba(0,212,255,.8)');
+    ctx.strokeStyle=g;ctx.lineWidth=1;ctx.beginPath();
+    for(let i=0;i<W;i++){let mn=1,mx=-1;for(let j=0;j<step;j++){const v=d[i*step+j]||0;if(v<mn)mn=v;if(v>mx)mx=v;}ctx.moveTo(i,(1+mn)/2*H);ctx.lineTo(i,(1+mx)/2*H);}
+    ctx.stroke();ac.close();
+  }catch(e){
+    const c=document.getElementById('wfc').getContext('2d');
+    c.strokeStyle='rgba(0,212,255,.2)';c.lineWidth=1;c.beginPath();
+    for(let i=0;i<W;i++){const a=(Math.sin(i*.08)*.3+Math.random()*.1)*(H/2);c.moveTo(i,H/2-a);c.lineTo(i,H/2+a);}
+    c.stroke();
+  }
+}
+
+// ── PLAYER ──
+aud.addEventListener('timeupdate',()=>{
+  const c=aud.currentTime,d=aud.duration||0;
+  document.getElementById('cT').textContent=fmtT(c);
+  document.getElementById('sk').value=c;
+  if(d>0)document.getElementById('ph2').style.left=(c/d*100)+'%';
+});
+aud.addEventListener('ended',()=>{isPlay=false;document.getElementById('pBtn').textContent='▶';});
+function tPlay(){if(!aud.src)return;if(isPlay){aud.pause();isPlay=false;document.getElementById('pBtn').textContent='▶';}else{aud.play();isPlay=true;document.getElementById('pBtn').textContent='⏸';}}
+function seekTo(v){if(aud.src)aud.currentTime=parseFloat(v);}
+function chSpd(v){aud.playbackRate=parseFloat(v);}
+function setVol(v){aud.volume=v/100;}
+document.getElementById('ww').addEventListener('click',e=>{if(!aud.duration)return;const r=e.currentTarget.getBoundingClientRect();aud.currentTime=(e.clientX-r.left)/r.width*aud.duration;});
+function stamp(){const t=aud.currentTime||0;const m=String(Math.floor(t/60)).padStart(2,'0');const s=String(Math.floor(t%60)).padStart(2,'0');insC(editor,`\n* (${m}:${s}) `);}
+
+// ── TEST API ──
+async function testAPI(){
+  const key=document.getElementById('apiK').value.trim();
+  const eb=document.getElementById('eb');eb.classList.remove('show');
+  if(!key){eb.textContent='請輸入 API Key';eb.style.color='var(--danger)';eb.classList.add('show');return;}
+  log('[ TEST ] 驗證 API Key...','i');
+  try{
+    const r=await fetch('https://api.openai.com/v1/models',{headers:{'Authorization':'Bearer '+key}});
+    if(r.ok){
+      log('[ OK   ] API Key 有效','s');
+      eb.textContent='✓ API Key 有效';eb.style.color='var(--ok)';eb.classList.add('show');
+    }else{
+      const e=await r.json().catch(()=>({}));
+      throw new Error(e?.error?.message||`HTTP ${r.status}`);
+    }
+  }catch(err){
+    log(`[ ERR  ] ${err.message}`,'er');
+    eb.textContent='✗ '+err.message;eb.style.color='var(--danger)';eb.classList.add('show');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// MAIN PIPELINE
+// ══════════════════════════════════════════════════════
+async function runPipeline(){
+  if(!curFile){log('[ ERR  ] 請先載入音訊','er');return;}
+  const key=document.getElementById('apiK').value.trim();
+  if(!key){alert('請輸入 OpenAI API Key');return;}
+  isRun=true;aborted=false;
+  document.getElementById('runBtn').disabled=true;
+  document.getElementById('stopBtn').style.display='flex';
+  document.getElementById('progBox').classList.add('show');
+  document.getElementById('eb').classList.remove('show');
+  setPhase(1);
+
+  // ── PHASE 1: WHISPER ──
+  log('[ P1   ] Whisper STT 開始...','i');
+  setP1(0,'初始化...');
+  rawEd.value='';
+  document.getElementById('rawStat').textContent='轉錄中...';
+  const lang=document.getElementById('lang').value;
+  const wPr=document.getElementById('wPr').value;
+  const totalDur=aud.duration||0;
+  const ckDur=totalDur>0?totalDur/numCk:0;
+  let raw='';
+
+  for(let i=0;i<numCk;i++){
+    if(aborted)break;
+    const cell=document.getElementById('ck'+i);
+    if(cell)cell.className='ck proc';
+    setP1(Math.round(i/numCk*100),`STT ${i+1}/${numCk}...`);
+    log(`[ STT  ] 分段 ${i+1}/${numCk} (${fmtB(Math.min(CHUNK,curFile.size-i*CHUNK))})`,'i');
+    try{
+      const chunk=curFile.slice(i*CHUNK,Math.min((i+1)*CHUNK,curFile.size));
+      const txt=await whisper(chunk,key,lang,wPr,i,i*ckDur);
+      if(txt){raw+=txt+'\n';rawEd.value+=txt+'\n';rawEd.scrollTop=rawEd.scrollHeight;if(cell)cell.className='ck done';log(`[ STT✓ ] 分段 ${i+1} OK`,'s');}
+      else{if(cell)cell.className='ck fail';log(`[ WARN ] 分段 ${i+1} 無文字`,'w');}
+    }catch(err){
+      if(cell)cell.className='ck fail';
+      log(`[ ERR  ] STT 分段 ${i+1}：${err.message}`,'er');
+      showEB(err.message);
+    }
+  }
+
+  setP1(100,'STT 完成');
+  document.getElementById('rawStat').textContent=`完成 (${rawEd.value.split('\n').filter(l=>l.trim()).length} 行)`;
+
+  if(!raw.trim()||aborted){if(!aborted)log('[ WARN ] Whisper 無輸出，請檢查 API Key 及音訊','w');finish();return;}
+
+  // ── PHASE 2: GPT-4o FORENSIC ──
+  setPhase(2);
+  log('[ P2   ] GPT-4o 司法鑑識分析...','i');
+  setP2(10,'連線 GPT-4o...');
+
+  const speakers=getSpeakers();
+  const spNote=speakers.length?`\n\n【已知角色】\n${speakers.map(s=>`- ${s}`).join('\n')}`:'';
+  const userMsg=`音訊檔案：${curFile.name}\n鑑識時間：${new Date().toLocaleString('zh-TW')}${spNote}\n\n【Whisper 原始逐字稿】\n${raw}\n\n請依照司法聲學鑑識格式，輸出完整的證據級鑑識報告。`;
+
+  try{
+    await gptStream(key,document.getElementById('gptM').value,userMsg);
+    log('[ P2✓  ] AI 鑑識分析完成','s');setP2(100,'完成');
+  }catch(err){
+    log(`[ ERR  ] GPT：${err.message}`,'er');
+    showEB('GPT 分析失敗：'+err.message);
+    editor.value=raw; // fallback
+  }
+  finish();
+}
+
+// ── WHISPER API ──
+async function whisper(blob,key,lang,prompt,idx,off){
+  const ext=(curFile.name.split('.').pop()||'wav').toLowerCase();
+  const safe=['wav','mp3','m4a','aac','flac','ogg','webm','mp4','mpeg','mpga'].includes(ext)?ext:'wav';
+  const mimes={wav:'audio/wav',mp3:'audio/mpeg',m4a:'audio/mp4',aac:'audio/aac',flac:'audio/flac',ogg:'audio/ogg',webm:'audio/webm',mp4:'audio/mp4',mpeg:'audio/mpeg',mpga:'audio/mpeg'};
+  const fd=new FormData();
+  fd.append('file',new Blob([blob],{type:mimes[safe]||'audio/wav'}),`audio.${safe}`);
+  fd.append('model','whisper-1');fd.append('language',lang);fd.append('response_format','verbose_json');
+  if(prompt)fd.append('prompt',prompt);
+  const r=await fetch('https://api.openai.com/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':'Bearer '+key},body:fd});
+  const raw=await r.text();
+  log(`[ API  ] Whisper HTTP ${r.status}，${raw.length} 字元`,'i');
+  if(!r.ok){let em=raw;try{em=JSON.parse(raw)?.error?.message||raw;}catch(e){}throw new Error(em.slice(0,200));}
+  let data;try{data=JSON.parse(raw);}catch(e){throw new Error('JSON解析失敗: '+raw.slice(0,100));}
+  if(data.segments?.length){
+    return data.segments.map(sg=>{const t=(sg.start||0)+off;const m=String(Math.floor(t/60)).padStart(2,'0');const s=String(Math.floor(t%60)).padStart(2,'0');return sg.text.trim()?`(${m}:${s}) ${sg.text.trim()}`:''}).filter(Boolean).join('\n');
+  }
+  if(data.text?.trim()){const m=String(Math.floor(off/60)).padStart(2,'0');const s=String(Math.floor(off%60)).padStart(2,'0');return `(${m}:${s}) ${data.text.trim()}`;}
+  return '';
+}
+
+// ── GPT-4o STREAMING ──
+async function gptStream(key,model,userMsg){
+  const r=await fetch('https://api.openai.com/v1/chat/completions',{
+    method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+    body:JSON.stringify({model,messages:[{role:'system',content:FORENSIC_PROMPT},{role:'user',content:userMsg}],temperature:0.1,max_tokens:4096,stream:true})
+  });
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(`HTTP ${r.status}: ${e?.error?.message||'API錯誤'}`);}
+  setP2(30,'GPT 生成中...');
+  editor.value='';
+  const reader=r.body.getReader(),dec=new TextDecoder();
+  let buf='';
+  while(true){
+    const{done,value}=await reader.read();
+    if(done)break;
+    buf+=dec.decode(value,{stream:true});
+    const lines=buf.split('\n');buf=lines.pop()||'';
+    for(const line of lines){
+      if(!line.startsWith('data: '))continue;
+      const d=line.slice(6).trim();
+      if(d==='[DONE]')continue;
+      try{const j=JSON.parse(d);const delta=j.choices?.[0]?.delta?.content||'';if(delta){editor.value+=delta;editor.scrollTop=editor.scrollHeight;}}catch(e){}
+    }
+    if(aborted){reader.cancel();break;}
+  }
+}
+
+// ── RE-ANALYZE ──
+async function reAnalyze(){
+  const raw=rawEd.value.trim();
+  if(!raw){log('[ WARN ] 請先執行 Whisper 轉錄或手動輸入逐字稿','w');return;}
+  const key=document.getElementById('apiK').value.trim();
+  if(!key){alert('請輸入 OpenAI API Key');return;}
+  isRun=true;aborted=false;
+  document.getElementById('runBtn').disabled=true;document.getElementById('stopBtn').style.display='flex';
+  document.getElementById('progBox').classList.add('show');
+  setPhase(2);setP2(10,'重新分析...');
+  log('[ P2   ] 重新執行 GPT-4o 鑑識分析...','i');
+  const speakers=getSpeakers();
+  const spNote=speakers.length?`\n\n【已知角色】\n${speakers.map(s=>`- ${s}`).join('\n')}`:'';
+  const fname=curFile?curFile.name:'音訊';
+  const userMsg=`音訊檔案：${fname}${spNote}\n\n【逐字稿】\n${raw}\n\n請依照司法聲學鑑識格式輸出完整報告。`;
+  try{await gptStream(key,document.getElementById('gptM').value,userMsg);log('[ P2✓  ] 完成','s');setP2(100,'完成');}
+  catch(err){log(`[ ERR  ] ${err.message}`,'er');showEB(err.message);}
+  finish();
+}
+
+function finish(){isRun=false;document.getElementById('runBtn').disabled=false;document.getElementById('stopBtn').style.display='none';setPhase(0);updStat();}
+function doStop(){aborted=true;log('[ STOP ] 中止中...','w');}
+function setPhase(n){document.getElementById('ph1').className='phase'+(n===1?' active':n>1?' done':'');document.getElementById('ph3').className='phase'+(n===2?' active':n>2?' done':'');}
+function setP1(p,t){document.getElementById('pf1').style.width=p+'%';document.getElementById('pt1').textContent=t;}
+function setP2(p,t){document.getElementById('pf2').style.width=p+'%';document.getElementById('pt2').textContent=t;}
+function showEB(m){const eb=document.getElementById('eb');eb.textContent=m;eb.style.color='var(--danger)';eb.classList.add('show');}
+
+// ── CHUNK GRID ──
+function buildCkGrid(n){
+  const g=document.getElementById('ckG');g.innerHTML='';
+  document.getElementById('ckLbl').textContent=`共 ${n} 段，每段 20MB:`;
+  for(let i=0;i<n;i++){const d=document.createElement('div');d.className='ck';d.id='ck'+i;d.title=`段 ${i+1}`;g.appendChild(d);}
+}
+
+// ── TAGS ──
+function ins(tag){insC(editor,tag);}
+function insC(el,txt){const s=el.selectionStart,e=el.selectionEnd;el.value=el.value.slice(0,s)+txt+el.value.slice(e);el.selectionStart=el.selectionEnd=s+txt.length;el.focus();updStat();}
+function openBg(){document.getElementById('bgMov').classList.add('show');document.getElementById('bgI').focus();}
+function closeBg(){document.getElementById('bgMov').classList.remove('show');document.getElementById('bgI').value='';}
+function confirmBg(){const v=document.getElementById('bgI').value.trim();if(v)ins(`[背景音: ${v}]`);closeBg();}
+document.getElementById('bgI').addEventListener('keydown',e=>{if(e.key==='Enter')confirmBg();if(e.key==='Escape')closeBg();});
+
+// ── HEADER ──
+function genHdr(){
+  const fname=curFile?curFile.name:'[未載入]';
+  const dur=curFile?document.getElementById('fD').textContent:'-';
+  const ts=new Date().toLocaleString('zh-TW');
+  const sps=getSpeakers();
+  let h=`【語音轉錄逐字稿】\n*【司法聲學鑑識報告】 音訊檔案：${fname}\n鑑識時間：${ts}\n音訊時長：${dur}\n角色識別：\n`;
+  sps.forEach(s=>{if(s)h+=`　${s}：（角色描述）\n`;});
+  h+='\n\n---\n\n';
+  editor.value=h+(editor.value||'');editor.scrollTop=0;updStat();
+}
+function getSpeakers(){return['spA','spB','spC','spD'].map(id=>document.getElementById(id).value.trim()).filter(Boolean);}
+
+// ── EXPORT ──
+function copyAll(){navigator.clipboard.writeText(editor.value).then(()=>log('[ COPY ] 已複製','s'));}
+function dlTxt(){dl(editor.value,sfx('_逐字稿.txt'),'text/plain;charset=utf-8');}
+function dlMd(){dl(editor.value,sfx('_逐字稿.md'),'text/markdown;charset=utf-8');}
+function dl(c,n,m){const b=new Blob([c],{type:m});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);log(`[ SAVE ] ${n}`,'s');}
+function sfx(s){return(curFile?curFile.name.replace(/\.[^.]+$/,''):'司法鑑識逐字稿')+s;}
+function clearAll(){if(confirm('清除所有內容？')){editor.value='';rawEd.value='';document.getElementById('rawStat').textContent='待轉錄';updStat();log('[ CLR  ] 已清除','w');}}
+function updStat(){const v=editor.value;document.getElementById('fStat').textContent=`字數：${v.length} ｜ 行數：${v.split('\n').filter(l=>l.trim()).length}`;}
+editor.addEventListener('input',updStat);
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea,button'))return;if(e.code==='Space'){e.preventDefault();tPlay();}});
+
+// ── 缺失的輔助函數 ──
+function fmtB(b){const u=['B','KB','MB','GB'];let v=b,i=0;while(v>=1024&&i<u.length-1){v/=1024;i++;}return Math.round(v*10)/10+u[i];}
+function fmtT(s){const m=Math.floor(s/60);const ss=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+
+log('[ INIT ] FAES v3.1 就緒','s');
+log('[ INFO ] Whisper STT → GPT-4o 自動情緒/角色/關鍵證據標註','i');
+</script>
+</body>
+</html>
