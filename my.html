@@ -187,6 +187,15 @@
             border-radius: 2px;
         }
 
+        /* ── Image Height Classes (replace inline heights) ── */
+        .ifh-lg   { height: 320px; }   /* main project images */
+        .ifh-v1   { height: 300px; }   /* V1 performance image */
+        .ifh-md   { height: 260px; }   /* P11 main, V2 main, P05 */
+        .ifh-sm   { height: 240px; }   /* P03 images */
+        .ifh-flex { min-height: 200px; } /* P08, P09 flex */
+        .ifh-xs   { height: 190px; }   /* P10 4-images */
+        .ifh-xxs  { height: 170px; }   /* P11 sub, V2 sub */
+
         .fig-tag {
             position: absolute;
             top: 13px;
@@ -245,6 +254,60 @@
             justify-content: center;
             gap: 8px;
             margin-top: 1.5rem;
+        }
+
+        /* ════════════════════════════════
+           RESPONSIVE — MOBILE
+        ════════════════════════════════ */
+        @media (max-width: 767px) {
+
+            /* Hero */
+            .hero-section {
+                padding: 4rem 1.25rem 2.5rem;
+            }
+
+            /* KPI number slightly smaller */
+            .kpi-number { font-size: 2rem; }
+
+            /* Panel header */
+            .panel-header {
+                padding: 1.75rem 0 1.25rem;
+                margin-bottom: 1.75rem;
+            }
+
+            /* Project sections */
+            .project-section {
+                padding: 2rem 0;
+            }
+
+            /* Image heights — shrink on mobile */
+            .ifh-lg, .ifh-v1 { height: 220px; }
+            .ifh-md           { height: 195px; }
+            .ifh-sm           { height: 175px; }
+            .ifh-flex         { min-height: 155px; }
+            .ifh-xs           { height: 150px; }
+            .ifh-xxs          { height: 135px; }
+
+            /* Dark card padding */
+            .dark-card { padding: 1.5rem; }
+
+            /* Tab buttons compact */
+            .tab-btn {
+                padding: 0.85rem 0.9rem;
+                font-size: 0.68rem;
+                gap: 4px;
+            }
+
+            /* Annotation font */
+            .annotation { font-size: 0.82rem; }
+        }
+
+        @media (max-width: 480px) {
+            .ifh-lg, .ifh-v1 { height: 190px; }
+            .ifh-md           { height: 170px; }
+            .ifh-sm           { height: 155px; }
+            .ifh-xs           { height: 135px; }
+            .ifh-xxs          { height: 115px; }
         }
     </style>
 </head>
@@ -331,7 +394,7 @@
 <!-- ══════════════════════════════════
      MAIN CONTENT
 ══════════════════════════════════ -->
-<main class="max-w-6xl mx-auto px-6 md:px-10">
+<main class="max-w-6xl mx-auto px-4 md:px-6 lg:px-10">
 
     <!-- ─────────────────────────────
          PANEL 1 : AI 知識庫
@@ -348,7 +411,7 @@
         </div>
 
         <!-- P01 -->
-        <div id="p01" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="p01" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-5 space-y-5">
                 <span class="tech-label">01 · 核心 AI 應用</span>
                 <h2 class="text-2xl serif">GPT 部門數位助理 X2</h2>
@@ -361,7 +424,7 @@
                 </div>
             </div>
             <div class="lg:col-span-7">
-                <div class="img-frame" style="height:320px;">
+                <div class="img-frame ifh-lg">
                     <span class="fig-tag">GPT 數位助理</span>
                     <img src="https://drive.google.com/thumbnail?id=1rwNlvTOxdXKycDY_4C1XRsL3l-S6dhf4&sz=w1000" alt="GPT 部門數位助理">
                 </div>
@@ -369,9 +432,9 @@
         </div>
 
         <!-- P12 -->
-        <div id="p12" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="p12" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-7">
-                <div class="img-frame" style="height:320px;">
+                <div class="img-frame ifh-lg">
                     <span class="fig-tag">企業資料庫整合中樞</span>
                     <img src="https://drive.google.com/thumbnail?id=1l7UULnpIALJybdrDbyyhYERuBk24ZOEZ&sz=w1000" alt="百筆資料整合與搜尋引擎">
                 </div>
@@ -410,7 +473,7 @@
         </div>
 
         <!-- P02 -->
-        <div id="p02" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="p02" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-5 space-y-5">
                 <span class="tech-label">02 · 智能數據轉譯</span>
                 <h2 class="text-2xl serif">逐字稿聲紋紀錄工具</h2>
@@ -423,7 +486,7 @@
                 </div>
             </div>
             <div class="lg:col-span-7">
-                <div class="img-frame" style="height:320px;">
+                <div class="img-frame ifh-lg">
                     <span class="fig-tag">聲紋技術應用</span>
                     <img src="https://drive.google.com/thumbnail?id=1rRox01vyH0XbGqhem70B4WPeOCd1BphA&sz=w1000" alt="逐字稿聲紋紀錄">
                 </div>
@@ -431,18 +494,18 @@
         </div>
 
         <!-- P03 -->
-        <div id="p03" class="project-section space-y-8 bg-white p-8 md:p-10 rounded-xl shadow-sm border border-stone-100">
+        <div id="p03" class="project-section space-y-8 bg-white p-6 md:p-10 rounded-xl shadow-sm border border-stone-100">
             <div class="max-w-2xl mx-auto text-center space-y-3">
                 <span class="tech-label">03 · 閉環培訓系統</span>
                 <h2 class="text-2xl serif">AI 音檔質檢與教材產出</h2>
                 <p style="font-size:13px;color:#888;font-weight:300;">整合 NotebookLM，實現從「數據獲取」到「資源沈澱」的自動化培訓閉環。</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div class="img-frame" style="height:240px;">
+                <div class="img-frame ifh-sm">
                     <span class="fig-tag">質檢報告模組</span>
                     <img src="https://drive.google.com/thumbnail?id=1sQtg2gDHV1w0SQ-LLQ3fsQKtVPpoH2bC&sz=w800">
                 </div>
-                <div class="img-frame" style="height:240px;">
+                <div class="img-frame ifh-sm">
                     <span class="fig-tag">影片教材產出</span>
                     <img src="https://drive.google.com/thumbnail?id=19yye8InOyRhPeCcwdZcMo7UdXl8ECDkc&sz=w800">
                 </div>
@@ -481,7 +544,7 @@
         </div>
 
         <!-- P04 -->
-        <div id="p04" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="p04" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-5 space-y-5">
                 <span class="tech-label">04 · 作業流程重塑</span>
                 <h2 class="text-2xl serif">雙網客戶工項自動化介面</h2>
@@ -499,7 +562,7 @@
                 </div>
             </div>
             <div class="lg:col-span-7">
-                <div class="img-frame" style="height:320px;">
+                <div class="img-frame ifh-lg">
                     <span class="fig-tag">自動化介面展示</span>
                     <img src="https://drive.google.com/thumbnail?id=17omhlj9mc5-2tIPwuDTt8R_qdhWvbGzk&sz=w1000">
                 </div>
@@ -507,15 +570,15 @@
         </div>
 
         <!-- P08 & P09 side by side -->
-        <div class="project-section grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="project-section grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
 
             <!-- P08 -->
-            <div id="p08" class="bg-white p-7 rounded-xl border border-stone-100 shadow-sm space-y-5 flex flex-col">
+            <div id="p08" class="bg-white p-6 md:p-7 rounded-xl border border-stone-100 shadow-sm space-y-5 flex flex-col">
                 <div>
                     <span class="tech-label">08 · 多元即時提醒中樞</span>
                     <h3 class="text-lg serif mt-1">Webhook 即時監控提醒中樞</h3>
                 </div>
-                <div class="img-frame flex-1" style="min-height:200px;">
+                <div class="img-frame ifh-flex flex-1">
                     <span class="fig-tag">Webhook 即時通報</span>
                     <img src="https://drive.google.com/thumbnail?id=1bZVNMcZilKupeqt3zZXeeqQIuGvoWs5k&sz=w1000" alt="Webhook 監控">
                 </div>
@@ -535,11 +598,11 @@
                     <h3 class="text-lg serif mt-1" style="color:#F5F0EB;">業助雙網工項三大指標自動計算通知</h3>
                     <p style="font-size:11px;color:#9D8E84;margin-top:4px;">核心技術：Webhook 即時串接 + Google 試算表邏輯引擎 + 可視化儀表板</p>
                 </div>
-                <div class="img-frame flex-1" style="min-height:200px;">
+                <div class="img-frame ifh-flex flex-1">
                     <span class="fig-tag" style="background:rgba(215,196,177,0.85);color:#3E2723;">指標自動化看板</span>
                     <img src="https://drive.google.com/thumbnail?id=1voVSsvRTORGx4tJvk0st4PKB5wlY9y52&sz=w1000">
                 </div>
-                <div class="grid grid-cols-3 gap-3 text-center pt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center pt-2">
                     <div>
                         <div class="serif text-sm mb-1" style="color:var(--oak);">管理透明化</div>
                         <p style="font-size:11px;color:#9D8E84;line-height:1.6;">Webhook 即時同步進度，無需詢問即掌握作業量。</p>
@@ -557,7 +620,7 @@
         </div>
 
         <!-- P11 -->
-        <div id="p11" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div id="p11" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div class="lg:col-span-5 space-y-5">
                 <span class="tech-label">11 · 跨部門決策分工引擎</span>
                 <h2 class="text-2xl serif">雙網退費跨部門決策與任務自動化分工系統</h2>
@@ -584,16 +647,16 @@
                 </div>
             </div>
             <div class="lg:col-span-7 space-y-4">
-                <div class="img-frame" style="height:260px;">
+                <div class="img-frame ifh-md">
                     <span class="fig-tag">決策系統主介面</span>
                     <img src="https://drive.google.com/thumbnail?id=1lHLqmh_iCbp7WSz1pQboolpGHfdYUIFt&sz=w1000" alt="退費決策系統主介面">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="img-frame" style="height:170px;">
+                    <div class="img-frame ifh-xxs">
                         <span class="fig-tag">決策路徑分流</span>
                         <img src="https://drive.google.com/thumbnail?id=1UXxirbCYR-0x_uF2PUbHfFLmAwkdv9Nv&sz=w600" alt="退費情境分流圖">
                     </div>
-                    <div class="img-frame" style="height:170px;">
+                    <div class="img-frame ifh-xxs">
                         <span class="fig-tag">群組分工範例</span>
                         <img src="https://drive.google.com/thumbnail?id=1rkZ3rA4HwfpSCrhaMa4hdE2spCOQN75n&sz=w600" alt="自動派單生成結果">
                     </div>
@@ -623,9 +686,9 @@
         </div>
 
         <!-- V1 -->
-        <div id="pv1" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="pv1" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-7">
-                <div class="img-frame" style="height:300px;">
+                <div class="img-frame ifh-v1">
                     <span class="fig-tag">V1 流程自動化</span>
                     <img src="https://drive.google.com/thumbnail?id=1l0VAQPUGqkOMQtN2cGqF1K7BdKr62zzX&sz=w1000">
                 </div>
@@ -638,7 +701,7 @@
         </div>
 
         <!-- V2 -->
-        <div id="pv2" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div id="pv2" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div class="lg:col-span-5 space-y-5">
                 <div style="display:inline-block;background:#3E2723;color:white;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;">PHASE 2</div>
                 <h3 class="text-xl serif" style="text-decoration:underline;text-decoration-color:var(--oak);text-underline-offset:8px;">V2：數據可視化轉型</h3>
@@ -654,15 +717,15 @@
                 </div>
             </div>
             <div class="lg:col-span-7 space-y-4">
-                <div class="img-frame" style="height:260px;">
+                <div class="img-frame ifh-md">
                     <span class="fig-tag">V2 年度趨勢看板</span>
                     <img src="https://drive.google.com/thumbnail?id=1BUXfWSacOM0goIR7bwAppYAmrhWoxns2&sz=w1000">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="img-frame" style="height:170px;">
+                    <div class="img-frame ifh-xxs">
                         <img src="https://drive.google.com/thumbnail?id=1x6_UHASPqPSZr6DdUnXqgt3XGIwUBOAz&sz=w600">
                     </div>
-                    <div class="img-frame" style="height:170px;">
+                    <div class="img-frame ifh-xxs">
                         <img src="https://drive.google.com/thumbnail?id=1VahGs9eU6iZF7bGxP_sdE0fXzitl5-R0&sz=w600">
                     </div>
                 </div>
@@ -692,20 +755,20 @@
                 <p style="font-size:14px;color:#5a5a5a;font-weight:300;max-width:640px;line-height:1.8;">針對不同客群開發兩種版本的 UI 試算工具，讓客戶在選取個人情境後，立即獲得個人化優惠結果，大幅縮短考慮期。</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="img-frame" style="height:260px;">
+                <div class="img-frame ifh-md">
                     <img src="https://drive.google.com/thumbnail?id=1ijYyjahEjsmPPb48Z6XC-uqZWw3d9LnV&sz=w600">
                 </div>
-                <div class="img-frame" style="height:260px;">
+                <div class="img-frame ifh-md">
                     <img src="https://drive.google.com/thumbnail?id=116zsv7BKPha6pwjs-IvI0FY1zWOh-gmN&sz=w600">
                 </div>
-                <div class="img-frame" style="height:260px;">
+                <div class="img-frame ifh-md">
                     <img src="https://drive.google.com/thumbnail?id=1IHI5L65YKrH9pZxT_AMM8QSedi1N5eng&sz=w600">
                 </div>
             </div>
         </div>
 
         <!-- P10 -->
-        <div id="p10" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div id="p10" class="project-section grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div class="lg:col-span-5 space-y-5">
                 <span class="tech-label">10 · 特殊作品 | 家庭教育數位工具</span>
                 <h2 class="text-2xl serif">寶貝獎勵看板<br><span class="text-base font-normal text-stone-400 not-serif" style="font-family:'Noto Sans TC';">Baby Reward Board</span></h2>
@@ -725,16 +788,16 @@
             <div class="lg:col-span-7 space-y-3">
                 <p style="font-size:10px;color:#aaa;letter-spacing:.4em;text-transform:uppercase;font-style:italic;">系統介面與功能展示</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="img-frame" style="height:190px;">
+                    <div class="img-frame ifh-xs">
                         <img src="https://drive.google.com/thumbnail?id=1YOKsqTO44z-Eke3slZcu2W2bpJAfDDWO&sz=w600">
                     </div>
-                    <div class="img-frame" style="height:190px;">
+                    <div class="img-frame ifh-xs">
                         <img src="https://drive.google.com/thumbnail?id=1iNGcpyB3H415OZAzbeOvtYZzQva3Kbtq&sz=w600">
                     </div>
-                    <div class="img-frame" style="height:190px;">
+                    <div class="img-frame ifh-xs">
                         <img src="https://drive.google.com/thumbnail?id=1-G-qu7oFLEfXfCrzVli-nmZV9kd6vydV&sz=w600">
                     </div>
-                    <div class="img-frame" style="height:190px;">
+                    <div class="img-frame ifh-xs">
                         <img src="https://drive.google.com/thumbnail?id=1p4DnKiHHND0cqjFcj68X-h79ID-hfxpY&sz=w600">
                     </div>
                 </div>
