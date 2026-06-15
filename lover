@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyce Chocolate 情人節平價限定禮盒企劃案 (審計新村店)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', 'Noto Sans TC', serif;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen">
+
+    <!-- Header 頂部導覽 -->
+    <header class="sticky top-0 z-50 bg-stone-900/95 text-stone-100 backdrop-blur border-b border-stone-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-stone-900 font-bold serif-title text-xl">J</div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider serif-title text-amber-400">Joyce Chocolate</h1>
+                    <p class="text-xs text-stone-400 tracking-widest">2026 SHENJI NEW VILLAGE PROJECT</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium tracking-wide">
+                <a href="#overview" class="hover:text-amber-400 transition-colors">市場定位</a>
+                <a href="#products" class="hover:text-amber-400 transition-colors">平價系列產品</a>
+                <a href="#calculator" class="bg-amber-500 text-stone-950 px-4 py-2 rounded-full hover:bg-amber-400 transition-all font-semibold flex items-center gap-1">
+                    <i data-lucide="calculator" class="w-4 h-4"></i> 審計店業績試算
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner 視覺區 -->
+    <section class="relative bg-stone-950 text-white py-20 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="inline-block border border-amber-500/50 text-amber-400 text-xs px-4 py-1.5 rounded-full tracking-widest uppercase font-semibold mb-6">
+                審計新村店 ． 情人節限定提案
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight serif-title mb-6 leading-tight">
+                精緻文創平價化：<br><span class="text-amber-400">輕奢無負擔</span> 情人節企劃
+            </h1>
+            <p class="text-stone-300 max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8">
+                因應審計新村年輕情侶、學生與觀光客群，我們全面推動「精緻紙盒化」與「平價化」策略！保留極致視覺美感，降低包裝溢價，打造百元級爆款禮盒。
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#products" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-8 py-3.5 rounded-xl transition-all transform hover:-translate-y-1 shadow-lg shadow-amber-500/20 flex items-center gap-2">
+                    <i data-lucide="package-open" class="w-5 h-5"></i> 評估三款平價禮盒
+                </a>
+                <a href="#calculator" class="bg-stone-900 hover:bg-stone-800 border border-stone-700 text-amber-400 font-bold px-8 py-3.5 rounded-xl transition-all flex items-center gap-2">
+                    <i data-lucide="trending-up" class="w-5 h-5"></i> 試算審計店利潤
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 戰略概述 -->
+    <section id="overview" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-stone-200/80">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <h2 class="text-xs uppercase tracking-widest text-amber-600 font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="compass" class="w-4 h-4"></i> Market Positioning
+                    </h2>
+                    <h3 class="text-2xl font-extrabold text-stone-900 serif-title mb-4">審計新村市場定位</h3>
+                    <p class="text-stone-600 leading-relaxed text-sm md:text-base">
+                        審計新村的核心消費主力為 Z 世代年輕族群、大學生及文青旅客。高單價的木盒與過度包裝會拉高門檻，因此我們本次採取**「極致簡約美術紙盒、保留巧克力高質感、百元輕奢好入手」**的定價哲學，創造高提袋率。
+                    </p>
+                </div>
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+                            <i data-lucide="piggy-bank" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-900 mb-2">平價高CP值 (極易入手)</h4>
+                            <p class="text-sm text-stone-600">定價區間落在 $320 - $580，完美切入年輕情侶互相送禮、告白的預算甜蜜點，大幅提升審計新村店面散客的「衝動性購買」意願。</p>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+                            <i data-lucide="package" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-900 mb-2">全面改用紙盒 (輕量環保)</h4>
+                            <p class="text-sm text-stone-600">捨棄厚重木盒、皮扣與重金屬配件，改用高質感壓紋美術特用紙盒、壓克力透明開窗或精裝硬殼紙盒，維持設計感，同時降低物流與包材成本。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 三大主力產品解析 -->
+    <section id="products" class="py-16 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase tracking-widest text-amber-600 font-bold mb-2 inline-block">Product Lineup</span>
+                <h2 class="text-3xl md:text-4xl font-black text-stone-900 serif-title">三大平價情人節紙盒禮盒</h2>
+                <p class="text-stone-500 max-w-lg mx-auto mt-4 text-sm">去繁從簡，保留巧克力最核心的精緻品質與故事美學，全面換裝環保高雅紙盒。</p>
+            </div>
+
+            <!-- 產品 1：微醺雙拼款 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-200/60 mb-16 transition-all hover:shadow-md">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative bg-stone-950 flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-stone-200">
+                        <div class="text-center w-full">
+                            <span class="absolute top-4 left-4 bg-amber-500 text-stone-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10">大人系輕奢</span>
+                            <!-- 直接展示產品實照 (無連結) -->
+                            <div class="w-full max-w-sm mx-auto overflow-hidden rounded-2xl shadow-xl bg-stone-900">
+                                <img src="S__38281219.jpg" alt="【微醺雙拼款】醺染松露與威士忌之戀" class="w-full h-auto object-cover rounded-2xl hover:scale-102 transition-transform duration-300">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-amber-600 text-xs uppercase tracking-widest font-extrabold mb-3">
+                                <i data-lucide="wine" class="w-4 h-4"></i> Mature & Smooth Pairing
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 serif-title mb-4">【微醺雙拼款】醺染松露與威士忌之戀</h3>
+                            <p class="text-stone-600 mb-6 leading-relaxed text-sm md:text-base">
+                                為追求質感與獨特層次的愛侶精心打造。外盒改採**「經典沉穩暗色美術卡紙盒」**，簡約內斂。左側放上招牌的極濃黑巧克力，右側搭配爆漿酒香松露，中間巧妙附贈風味滴管瓶，讓消費者能自行滴入微量威士忌享受風味變化，是審計新村極具特色的文創伴手禮。
+                            </p>
+                            
+                            <div class="border-t border-stone-100 pt-6 mb-6">
+                                <h4 class="font-bold text-stone-900 mb-3 text-xs tracking-wide uppercase text-stone-500">📦 平價版特色配置：</h4>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-stone-600 text-sm">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-600"></i> 85%經典濃郁生巧克力 (9格)</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-600"></i> 威士忌酒心松露巧克力 (8顆)</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-600"></i> 高質感極簡暗色特用紙包裝盒</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-600"></i> 迷你威士忌風味滴管瓶 1 支</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-600"></i> 紙襯包裝結構 (無繁瑣木盒與銅牌)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-amber-50 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 border border-amber-100">
+                            <div>
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">審計店定價</span>
+                                <span class="text-2xl font-black text-amber-700">NT$ 580</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">預計毛利率</span>
+                                <span class="text-sm font-bold text-stone-800">約 70% (用紙盒成本大幅驟降)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 產品 2：命中註定星球占卜款 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-200/60 mb-16 transition-all hover:shadow-md">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative bg-stone-950 flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-stone-200">
+                        <div class="text-center w-full">
+                            <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10 font-mono">IG人氣爆款</span>
+                            <!-- 直接展示產品實照 (無連結) -->
+                            <div class="w-full max-w-sm mx-auto overflow-hidden rounded-2xl shadow-xl bg-stone-900">
+                                <img src="Gemini_Generated_Image_wuyrr2wuyrr2wuyr.png" alt="【命中註定款】星宇占卜．巧克力命運之書" class="w-full h-auto object-cover rounded-2xl hover:scale-102 transition-transform duration-300">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-purple-600 text-xs uppercase tracking-widest font-extrabold mb-3">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> Cosmic Dream
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 serif-title mb-4">【命中註定款】星宇占卜．巧克力命運之書</h3>
+                            <p class="text-stone-600 mb-6 leading-relaxed text-sm md:text-base">
+                                專攻網美打卡與 Z 世代互動話題。我們將原有的重皮扣木箱外盒，改採**「高解析彩色燙金特印硬紙盒」**，不僅成本僅剩原本的四分之一，更方便現場堆疊陳列。內嵌 9 顆極緻璀璨的噴砂星空手工巧克力，將奢華感封存在平價且好攜帶的文創紙盒中。
+                            </p>
+                            
+                            <div class="border-t border-stone-100 pt-6 mb-6">
+                                <h4 class="font-bold text-stone-900 mb-3 text-xs tracking-wide uppercase text-stone-500">📦 平價版特色配置：</h4>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-stone-600 text-sm">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-600"></i> 星空噴砂手工星球巧克力 (9顆九種風味)</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-600"></i> 夢幻手繪星空彩色特印硬紙盒</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-600"></i> 精緻紙卡隔板與透明保護內襯</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-600"></i> 隨盒附贈手繪風味對照紙吊牌 (取代說明書)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 border border-purple-100">
+                            <div>
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">審計店定價</span>
+                                <span class="text-2xl font-black text-purple-700">NT$ 480</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">預計毛利率</span>
+                                <span class="text-sm font-bold text-stone-800">約 72% (高顏值與極低卡紙盒成本)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 產品 3：書籍款生巧克力 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-200/60 mb-16 transition-all hover:shadow-md">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative bg-stone-950 flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-stone-200">
+                        <div class="text-center w-full">
+                            <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10 font-mono">文青必帶</span>
+                            <!-- 直接並排展示外觀與內部兩張產品實照 (無連結) -->
+                            <div class="grid grid-cols-2 gap-2 max-w-sm mx-auto">
+                                <div class="overflow-hidden rounded-xl shadow bg-stone-900">
+                                    <img src="Gemini_Generated_Image_cd2iascd2iascd2i.png" alt="【書籍款】古典書冊外觀" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300">
+                                </div>
+                                <div class="overflow-hidden rounded-xl shadow bg-stone-900">
+                                    <img src="Gemini_Generated_Image_wcb0d7wcb0d7wcb0.png" alt="【書籍款】內部生巧克力與情詩" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-emerald-600 text-xs uppercase tracking-widest font-extrabold mb-3">
+                                <i data-lucide="book-open" class="w-4 h-4"></i> Retro Literary Classic
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 serif-title mb-4">【書籍款】紅磚牆下的愛戀 ． 古典書冊生巧克力</h3>
+                            <p class="text-stone-600 mb-6 leading-relaxed text-sm md:text-base">
+                                這款是審計新村「文青魂」的極致代表。外觀是一本極具復古中世紀風格的**「輕量化書本造型摺疊卡紙盒」**。打開書本紙盒時，左頁印製著直擊心靈的原創溫類情詩：*「如詩的情感，在苦澀中尋覓甘甜。彷彿歲月，在你我眼底，編織一場紅磚牆下的愛戀。」*；右側挖空處則放上精緻切磚的經典生巧克力。
+                            </p>
+                            
+                            <div class="border-t border-stone-100 pt-6 mb-6">
+                                <h4 class="font-bold text-stone-900 mb-3 text-xs tracking-wide uppercase text-stone-500">📦 平價版特色配置：</h4>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-stone-600 text-sm">
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> 85%經典濃郁生巧克力 (9格)</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> 輕量化書本造型折疊特裝紙外盒</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> 盒身一體成型情詩內頁紙卡（印刷呈現）</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> 平價專用高質感環保巧克力食品叉</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 border border-emerald-100">
+                            <div>
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">審計店定價</span>
+                                <span class="text-2xl font-black text-emerald-700">NT$ 320</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-stone-500 uppercase tracking-wider block">預計毛利率</span>
+                                <span class="text-sm font-bold text-stone-800">約 75% (印刷一體成型，製程極快)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 業績與利潤實時計算器 (老闆最關心的數據) -->
+    <section id="calculator" class="py-16 bg-stone-900 text-stone-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-xs uppercase tracking-widest text-amber-400 font-bold mb-2 inline-block">Audit Village Financials</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold serif-title text-white">審計店 ． 銷量與利潤即時試算</h2>
+                <p class="text-stone-400 text-sm mt-2">老闆，您可以滑動下方拉桿調整預估銷量，即刻評估此定價在審計新村的高提袋效益！</p>
+            </div>
+
+            <div class="bg-stone-850 border border-stone-800 rounded-3xl p-6 md:p-10 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- 輸入區域 -->
+                <div class="lg:col-span-7 space-y-6">
+                    <h3 class="text-lg font-bold text-amber-400 border-b border-stone-800 pb-3 flex items-center gap-2">
+                        <i data-lucide="sliders" class="w-5 h-5"></i> 預估銷售數量調整 (平價版)
+                    </h3>
+                    
+                    <!-- 產品 1 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="font-semibold text-stone-200">1. 【微醺雙拼款】(平價紙盒 $580/盒)</span>
+                            <span id="p1-qty-display" class="font-mono text-amber-400 font-bold">300 盒</span>
+                        </div>
+                        <input type="range" id="p1-qty" min="0" max="2000" step="20" value="300" class="w-full accent-amber-500 bg-stone-800 rounded-lg appearance-none h-2 cursor-pointer">
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>0 盒</span>
+                            <span>1,000 盒</span>
+                            <span>2,000 盒</span>
+                        </div>
+                    </div>
+
+                    <!-- 產品 2 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="font-semibold text-stone-200">2. 【命中註定款】(平價紙盒 $480/盒)</span>
+                            <span id="p2-qty-display" class="font-mono text-amber-400 font-bold">500 盒</span>
+                        </div>
+                        <input type="range" id="p2-qty" min="0" max="2000" step="20" value="500" class="w-full accent-amber-500 bg-stone-800 rounded-lg appearance-none h-2 cursor-pointer">
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>0 盒</span>
+                            <span>1,000 盒</span>
+                            <span>2,000 盒</span>
+                        </div>
+                    </div>
+
+                    <!-- 產品 3 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="font-semibold text-stone-200">3. 【古典書籍款】(平價紙盒 $320/盒)</span>
+                            <span id="p3-qty-display" class="font-mono text-amber-400 font-bold">800 盒</span>
+                        </div>
+                        <input type="range" id="p3-qty" min="0" max="2000" step="20" value="800" class="w-full accent-amber-500 bg-stone-800 rounded-lg appearance-none h-2 cursor-pointer">
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>0 盒</span>
+                            <span>1,000 盒</span>
+                            <span>2,000 盒</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 輸出成果 -->
+                <div class="lg:col-span-5 bg-stone-900 border border-stone-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest text-stone-400 uppercase mb-4">預估營運成果財務報表</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between border-b border-stone-800 pb-2">
+                                <span class="text-stone-400 text-sm">總預估銷售量</span>
+                                <span id="total-qty" class="font-bold text-white font-mono">1,600 盒</span>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-800 pb-2">
+                                <span class="text-stone-400 text-sm">預估總營業收入</span>
+                                <span id="total-revenue" class="font-bold text-amber-400 font-mono text-lg">NT$ 670,000</span>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-800 pb-2">
+                                <span class="text-stone-400 text-sm">生產與紙盒包材成本</span>
+                                <span id="total-cost" class="font-bold text-stone-300 font-mono">NT$ 183,200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-amber-500/20">
+                        <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs text-amber-400 uppercase tracking-widest block font-bold">預估營業毛利</span>
+                                    <span id="net-profit" class="text-3xl font-black text-amber-300 font-mono">NT$ 486,800</span>
+                                </div>
+                                <div class="bg-amber-500 text-stone-950 text-xs font-black px-2.5 py-1.5 rounded-lg font-mono" id="avg-margin">
+                                    72.7% 毛利
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-500 py-12 border-t border-stone-900 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="serif-title text-stone-400 font-bold mb-2">Joyce Chocolate 手工巧克力工坊</p>
+            <p class="text-xs text-stone-600">本企劃書為審計新村限定款商業機密。版權所有 © 2026</p>
+        </div>
+    </footer>
+
+    <!-- 交互計算邏輯 -->
+    <script>
+        // 初始化圖標
+        lucide.createIcons();
+
+        // 產品平價版定價與成本常數定義
+        const P1_PRICE = 580;
+        const P1_COST_PERCENT = 0.30; // 30% 成本率 (因改裝極簡美術紙盒，包材成本暴跌)
+        
+        const P2_PRICE = 480;
+        const P2_COST_PERCENT = 0.28; // 28% 成本率 (彩色壓印美術特用紙盒)
+        
+        const P3_PRICE = 320;
+        const P3_COST_PERCENT = 0.25; // 25% 成本率 (輕量折疊紙盒，生產成本極低)
+
+        // DOM 節點
+        const p1Input = document.getElementById('p1-qty');
+        const p2Input = document.getElementById('p2-qty');
+        const p3Input = document.getElementById('p3-qty');
+
+        const p1Display = document.getElementById('p1-qty-display');
+        const p2Display = document.getElementById('p2-qty-display');
+        const p3Display = document.getElementById('p3-qty-display');
+
+        const totalQtyDisplay = document.getElementById('total-qty');
+        const totalRevenueDisplay = document.getElementById('total-revenue');
+        const totalCostDisplay = document.getElementById('total-cost');
+        const netProfitDisplay = document.getElementById('net-profit');
+        const avgMarginDisplay = document.getElementById('avg-margin');
+
+        // 計算邏輯
+        function calculateFinancials() {
+            const q1 = parseInt(p1Input.value);
+            const q2 = parseInt(p2Input.value);
+            const q3 = parseInt(p3Input.value);
+
+            // 更新輸入顯示
+            p1Display.textContent = `${q1} 盒`;
+            p2Display.textContent = `${q2} 盒`;
+            p3Display.textContent = `${q3} 盒`;
+
+            // 計算營收與成本
+            const r1 = q1 * P1_PRICE;
+            const r2 = q2 * P2_PRICE;
+            const r3 = q3 * P3_PRICE;
+            const totalRevenue = r1 + r2 + r3;
+
+            const c1 = r1 * P1_COST_PERCENT;
+            const c2 = r2 * P2_COST_PERCENT;
+            const c3 = r3 * P3_COST_PERCENT;
+            const totalCost = c1 + c2 + c3;
+
+            const totalQty = q1 + q2 + q3;
+            const netProfit = totalRevenue - totalCost;
+            const avgMargin = totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(1) : '0.0';
+
+            // 更新畫面
+            totalQtyDisplay.textContent = `${totalQty.toLocaleString()} 盒`;
+            totalRevenueDisplay.textContent = `NT$ ${Math.round(totalRevenue).toLocaleString()}`;
+            totalCostDisplay.textContent = `NT$ ${Math.round(totalCost).toLocaleString()}`;
+            netProfitDisplay.textContent = `NT$ ${Math.round(netProfit).toLocaleString()}`;
+            avgMarginDisplay.textContent = `${avgMargin}% 毛利`;
+        }
+
+        // 綁定監聽器
+        p1Input.addEventListener('input', calculateFinancials);
+        p2Input.addEventListener('input', calculateFinancials);
+        p3Input.addEventListener('input', calculateFinancials);
+
+        // 首次呼叫
+        calculateFinancials();
+    </script>
+</body>
+</html>
