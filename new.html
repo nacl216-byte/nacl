@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>審計新村巧克力店｜開幕籌備時程規劃</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Serif TC, Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cocoa: {
+                            50: '#FDFBF7',
+                            100: '#F3EFE9',
+                            200: '#E7DEC3',
+                            300: '#D0C19F',
+                            400: '#9E896A',
+                            500: '#7F674E',
+                            600: '#644F3C',
+                            700: '#4A3728',
+                            800: '#3D2D21',
+                            900: '#271C14',
+                        },
+                        cream: {
+                            50: '#FAF8F5',
+                            100: '#F5ECE1',
+                            200: '#EADBC8',
+                            300: '#DAC0A3',
+                        },
+                        accent: {
+                            gold: '#C5A880',
+                            sage: '#8F9779',
+                            rose: '#C58F8F',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['Inter', '"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #FAF8F5;
+        }
+        .serif-font {
+            font-family: 'Noto Serif TC', serif;
+        }
+        /* Custom scrollbar for modern feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5ECE1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7F674E;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="text-cocoa-900 pb-20">
+
+    <!-- HEADER -->
+    <header class="relative overflow-hidden border-b border-cream-200 bg-cocoa-900 text-cream-50 py-12 px-6 text-center">
+        <!-- Background decorative elements -->
+        <div class="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-cocoa-800 opacity-40 blur-xl"></div>
+        <div class="absolute -bottom-12 -right-12 w-64 h-64 rounded-full bg-cocoa-800 opacity-30 blur-2xl"></div>
+        
+        <div class="relative max-w-4xl mx-auto">
+            <span class="inline-block px-4 py-1.5 mb-3 rounded-full border border-accent-gold/40 text-accent-gold text-xs tracking-widest uppercase font-semibold">
+                Shenji New Village · Chocolate Concept Store
+            </span>
+            <h1 class="serif-font text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-cream-100 leading-tight">
+                審計新村巧克力店<br class="md:hidden"> 開幕籌備時程規劃書
+            </h1>
+            <p class="mt-4 text-cream-200 max-w-xl mx-auto text-sm md:text-base font-light leading-relaxed">
+                以「手作溫度與在地文創」為底蘊，精準掌控前置空窗期，<br>確保在浪漫的情人節檔期華麗登場。
+            </p>
+            <div class="mt-6 flex justify-center gap-3 text-xs text-cream-300">
+                <span><i class="fa-regular fa-user mr-1 text-accent-gold"></i> 提案人：店長</span>
+                <span class="mx-2">•</span>
+                <span><i class="fa-regular fa-calendar-check mr-1 text-accent-gold"></i> 目標：8/22 情人節前夕盛大開幕</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 mt-8">
+
+        <!-- SECTION 1: THE PREPARATION STRATEGY (The "Why") -->
+        <section class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream-100 mb-8">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-cream-100 text-cocoa-700">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </span>
+                <h2 class="serif-font text-xl md:text-2xl font-bold text-cocoa-800">黃金期規劃：時程容錯率與細節掌握</h2>
+            </div>
+            <p class="text-sm text-cocoa-600 mb-6">
+                提早於7月中旬進入全面籌備，能拉長黃金籌備期至 38 天，確保每個店務細節都在掌控之中：
+            </p>
+
+            <!-- Display Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Visual Chart Bar -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-cream-50 rounded-2xl p-5 border border-cream-100/50">
+                        <div class="flex justify-between text-xs font-semibold text-cocoa-600 mb-2">
+                            <span>7/15 舊前業者撤出</span>
+                            <span>8/22 情人節前夕開幕</span>
+                        </div>
+                        
+                        <!-- Proactive Progress Bar -->
+                        <div id="bar-proactive" class="transition-all duration-500">
+                            <div class="w-full bg-cocoa-100 rounded-full h-8 overflow-hidden relative shadow-inner">
+                                <div class="bg-accent-sage h-full text-white text-[11px] font-bold flex items-center pl-4 transition-all duration-500" style="width: 100%">
+                                    黃金籌備期：38 天
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-1 mt-2 text-[10px] text-cocoa-500">
+                                <div class="text-left">🔍 現地盤點</div>
+                                <div class="text-center">🛠️ 精細裝潢</div>
+                                <div class="text-center">👥 人才培訓</div>
+                                <div class="text-right">📣 行銷預熱</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Explanation Panel -->
+                <div class="lg:col-span-5">
+                    <div id="desc-proactive" class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-5 space-y-3">
+                        <h4 class="font-bold text-emerald-800 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> 7月中旬起全面籌備：從容且完美的開幕品質
+                        </h4>
+                        <ul class="text-xs text-emerald-900/80 space-y-2 list-disc list-inside">
+                            <li><strong>省下高昂裝潢費：</strong> 提早盤點現成硬體，精確出圖，省下非必要開銷。</li>
+                            <li><strong>兩階段高效率培訓：</strong> 小艾先至台北店跟崗實習，回台中後設計SOP培訓教程。</li>
+                            <li><strong>100% 確保情人節業績：</strong> 能在 8/13 開始線上預熱行銷，開幕即爆單。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE TIMELINE VIEW -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-cream-100 text-cocoa-700">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+                        <h2 class="serif-font text-xl md:text-2xl font-bold text-cocoa-800">籌備時程表 專業甘特圖</h2>
+                    </div>
+                    <p class="text-sm text-cocoa-600 mt-1">
+                        精確劃分五大階段，全面掌控裝潢施工、台北實習、團隊招募與行銷預熱。
+                    </p>
+                </div>
+            </div>
+
+            <!-- GANTT CHART VIEW -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream-100 overflow-x-auto">
+                <div class="min-w-[760px]">
+                    <!-- Gantt Chart Header (Dates) -->
+                    <div class="grid grid-cols-12 border-b border-cream-100 pb-4 mb-4 text-xs font-bold text-cocoa-600">
+                        <div class="col-span-3">籌備核心維度 / 任務項目</div>
+                        <div class="col-span-9 grid grid-cols-5 text-center">
+                            <div class="border-l border-cream-100">7/15 - 7/20<br><span class="text-[10px] font-normal text-cocoa-400">第一階段</span></div>
+                            <div class="border-l border-cream-100">7/21 - 8/05<br><span class="text-[10px] font-normal text-cocoa-400">第二階段</span></div>
+                            <div class="border-l border-cream-100">8/06 - 8/12<br><span class="text-[10px] font-normal text-cocoa-400">第三階段</span></div>
+                            <div class="border-l border-cream-100">8/13 - 8/19<br><span class="text-[10px] font-normal text-cocoa-400">第四階段</span></div>
+                            <div class="border-l border-cream-100">8/20 - 8/22<br><span class="text-[10px] font-normal text-cocoa-400">第五階段</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Gantt Chart Rows -->
+                    <div class="space-y-4">
+                        <!-- Row 1: 空間設計與硬體清點 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-gold"></span>
+                                空間設計與硬體清點
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-1 bg-accent-gold/20 border-y-2 border-accent-gold rounded-l-lg flex items-center justify-center text-[10px] font-bold text-cocoa-800 z-10">
+                                    清點物資、出圖
+                                </div>
+                                <div class="col-span-4 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: 行政學習與流程移轉 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+                                台北店行政與流程移轉
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-1 bg-amber-600/20 border-y-2 border-amber-600 rounded-l-lg flex items-center justify-center text-[10px] font-bold text-amber-900 z-10">
+                                    台北店實習(1天)
+                                </div>
+                                <div class="col-span-4 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: 裝潢工班施工 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-sage"></span>
+                                工班進場與裝潢施工
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-1"></div>
+                                <div class="col-span-1 bg-accent-sage/20 border-y-2 border-accent-sage rounded-lg flex items-center justify-center text-[10px] font-bold text-accent-sage z-10">
+                                    硬體施工 (最核心)
+                                </div>
+                                <div class="col-span-1 bg-accent-sage/10 border-y border-dashed border-accent-sage/50 flex items-center justify-center text-[9px] text-cocoa-500">
+                                    細部調整
+                                </div>
+                                <div class="col-span-2 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 4: 人才招募與面試 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                                團隊招募與初階面試
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-1"></div>
+                                <div class="col-span-1 bg-blue-500/20 border-y-2 border-blue-500 rounded-lg flex items-center justify-center text-[10px] font-bold text-blue-900 z-10">
+                                    履歷篩選與面試
+                                </div>
+                                <div class="col-span-3 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 5: 物資採購與設備定位 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                                硬體設備與物資定位
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-2"></div>
+                                <div class="col-span-1 bg-purple-500/20 border-y-2 border-purple-500 rounded-lg flex items-center justify-center text-[10px] font-bold text-purple-900 z-10">
+                                    設備測試與驗收
+                                </div>
+                                <div class="col-span-2 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 6: 員工教育訓練 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                                員工教育訓練與模擬
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-3"></div>
+                                <div class="col-span-1 bg-pink-500/20 border-y-2 border-pink-500 rounded-lg flex items-center justify-center text-[10px] font-bold text-pink-900 z-10">
+                                    1週紮實SOP受訓
+                                </div>
+                                <div class="col-span-1 bg-cream-50/40 rounded-r-lg border-r border-y border-dashed border-cream-200"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 7: 行銷與試營運 -->
+                        <div class="grid grid-cols-12 items-center">
+                            <div class="col-span-3 text-xs font-semibold text-cocoa-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-rose"></span>
+                                社群行銷預熱與試營運
+                            </div>
+                            <div class="col-span-9 grid grid-cols-5 h-8 relative">
+                                <div class="col-span-3"></div>
+                                <div class="col-span-1 bg-accent-rose/10 border-y border-dashed border-accent-rose/40 flex items-center justify-center text-[9px] text-accent-rose">
+                                    社群開跑
+                                </div>
+                                <div class="col-span-1 bg-accent-rose/30 border-y-2 border-accent-rose rounded-r-lg flex items-center justify-center text-[10px] font-bold text-cocoa-900 z-10">
+                                    試營運與正式開幕
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Legend -->
+                    <div class="mt-8 flex flex-wrap gap-4 text-xs text-cocoa-500 border-t border-cream-100 pt-4">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-square text-accent-gold"></i> 第一階段 (盤點省成本)</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-square text-accent-sage"></i> 第二階段 (硬體施工/招募)</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-square text-purple-300"></i> 第三階段 (設備定位)</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-square text-pink-300"></i> 第四階段 (教育訓練)</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-square text-accent-rose"></i> 第五階段 (迎戰開幕)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE CHECKLIST -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Left 2 Cols: Checklists -->
+            <div class="lg:col-span-2 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream-100">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-cream-100 text-cocoa-700">
+                            <i class="fa-solid fa-list-check"></i>
+                        </span>
+                        <h2 class="serif-font text-xl font-bold text-cocoa-800">細部籌備清單</h2>
+                    </div>
+                    <span class="text-xs text-cocoa-500 font-medium">勾選以計算籌備進度</span>
+                </div>
+
+                <!-- Checklist Grid -->
+                <div class="space-y-6">
+                    <!-- Category 1 -->
+                    <div>
+                        <h3 class="text-xs font-bold text-accent-gold uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-cubes"></i> 階段一：物資盤點與台北學習 (7/15 - 7/20)
+                        </h3>
+                        <div class="space-y-2.5">
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5" checked>
+                                <span class="text-xs text-cocoa-800 leading-relaxed">確認舊店留用的硬體清單（如：展示冰櫃、工作檯、冷氣等）以省下成本</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">安排一天「台北店一日實習」，深入對接店務與行政流程 SOP</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">設計師現場丈量，精確出圖（加入留用硬體之尺寸參數）</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div>
+                        <h3 class="text-xs font-bold text-accent-sage uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-hammer"></i> 階段二：裝潢施工與招募面試 (7/21 - 8/05)
+                        </h3>
+                        <div class="space-y-2.5">
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">工班進場施工，現場對接水電管路與巧克力適配溫控</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">於社群、人力銀行發布「審計店」正職與兼職人員招募資訊</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">店長親自主持人才面試，完成首波核心團隊招募</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div>
+                        <h3 class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-boxes-packing"></i> 階段三：設備驗收與物資進貨 (8/06 - 8/12)
+                        </h3>
+                        <div class="space-y-2.5">
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">裝潢撤場與驗收、硬體大件設備（冷凍庫、POS收銀等）進場定位</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">物料（商品、副資材、包裝盒）進貨並盤點入庫</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 4 -->
+                    <div>
+                        <h3 class="text-xs font-bold text-pink-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> 階段四：團隊培訓與行銷發酵 (8/13 - 8/19)
+                        </h3>
+                        <div class="space-y-2.5">
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">全員密集教育訓練（產品知識、服務禮儀、結帳與出貨 SOP）</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">配合審計新村文創氛圍，開啟「情人節限定」線上行銷預熱與抽獎</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 5 -->
+                    <div>
+                        <h3 class="text-xs font-bold text-accent-rose uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-store"></i> 階段五：試營運與正式開幕 (8/20 - 8/22)
+                        </h3>
+                        <div class="space-y-2.5">
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">進行為期兩天的內部壓力測試與封閉試營運，微調服務流程</span>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 bg-cream-50 hover:bg-cream-100/50 rounded-xl cursor-pointer transition-colors duration-150">
+                                <input type="checkbox" onchange="updateProgress()" class="todo-item mt-1 rounded text-cocoa-700 focus:ring-cocoa-600 border-cream-300 w-4.5 h-4.5">
+                                <span class="text-xs text-cocoa-800 leading-relaxed">情人節檔期盛大開幕，引爆現場排隊人潮與社群聲量</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right 1 Col: Project Health Panel -->
+            <div class="bg-cocoa-800 text-cream-100 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-md border border-cocoa-700">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs uppercase text-accent-gold font-semibold tracking-wider">Project Dashboard</span>
+                        <h3 class="serif-font text-xl font-bold text-cream-50 mt-1">籌備狀態即時儀表板</h3>
+                        <p class="text-xs text-cream-300 mt-2">
+                            此處會隨著您在左側「細部籌備清單」的落實情況，即時計算全店開幕進度：
+                        </p>
+                    </div>
+
+                    <!-- Circular Progress Visual -->
+                    <div class="py-6 flex flex-col items-center justify-center">
+                        <div class="relative w-36 h-36 flex items-center justify-center bg-cocoa-900 rounded-full border-4 border-accent-gold/20 shadow-inner">
+                            <div class="text-center">
+                                <span id="progress-percent" class="serif-font text-4xl font-extrabold text-accent-gold">8%</span>
+                                <p class="text-[10px] text-cream-300 uppercase tracking-widest mt-1">新店整備率</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Indicators -->
+                    <div class="space-y-3.5 border-t border-cocoa-700 pt-5 text-xs text-cream-200">
+                        <div class="flex justify-between items-center">
+                            <span>已完成子任務</span>
+                            <span id="progress-count" class="font-bold text-accent-gold">1 / 12 項</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>情人節達標率估算</span>
+                            <span id="success-probability" class="font-bold text-emerald-400">極低風險 (需即時動員)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>目前進度評語</span>
+                            <span id="status-comment" class="text-accent-gold font-semibold text-right">尚未完全開始籌備</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Bottom Card -->
+                <div class="mt-8 p-4 bg-cocoa-900 rounded-2xl border border-cocoa-700/50">
+                    <h4 class="text-xs font-bold text-accent-gold flex items-center gap-1.5 mb-1">
+                        <i class="fa-solid fa-lightbulb"></i> 店長小叮嚀
+                    </h4>
+                    <p class="text-[11px] text-cream-300 leading-relaxed">
+                        與老闆對話時，重點要放在「幫店鋪省下多餘的重複性裝潢開銷」以及「台北行政流程的百分之百複製」。這兩個說法最能打動經營者的心。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="max-w-6xl mx-auto px-6 text-center text-xs text-cocoa-400 border-t border-cream-200 pt-8 mt-12">
+        <p>© 2026 審計新村巧克力店. 開幕籌備專屬提案資料</p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT -->
+    <script>
+        // Update progress of the checklist dynamically
+        function updateProgress() {
+            const checkBoxes = document.querySelectorAll('.todo-item');
+            const checkedBoxes = document.querySelectorAll('.todo-item:checked');
+            
+            const total = checkBoxes.length;
+            const completed = checkedBoxes.length;
+            const percentage = Math.round((completed / total) * 100);
+
+            // Update DOM Elements
+            document.getElementById('progress-percent').innerText = `${percentage}%`;
+            document.getElementById('progress-count').innerText = `${completed} / ${total} 項`;
+
+            // Update Success Probabilities and Status text based on score
+            const successProb = document.getElementById('success-probability');
+            const statusComment = document.getElementById('status-comment');
+
+            if (percentage < 30) {
+                successProb.innerText = "🚨 情人節可能無法順利營業";
+                successProb.className = "font-bold text-rose-400";
+                statusComment.innerText = "急待提早進入籌備！";
+            } else if (percentage >= 30 && percentage < 70) {
+                successProb.innerText = "⏳ 進入緊鑼密鼓準備期";
+                successProb.className = "font-bold text-amber-400";
+                statusComment.innerText = "各環節交叉進行中";
+            } else {
+                successProb.innerText = "✨ 開幕大捷機率極高！";
+                successProb.className = "font-bold text-emerald-400";
+                statusComment.innerText = "店內系統即將全部到位";
+            }
+        }
+
+        // Initialize progress on window load
+        window.onload = function() {
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
