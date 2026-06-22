@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智生活 User Profile - 客資360 & AI智慧銷售儀表板</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for Premium UI Feel -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .opportunity-glow {
+            box-shadow: 0 0 22px rgba(245, 158, 11, 0.2);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Premium Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between h-auto md:h-20 py-4 md:py-0 items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-gradient-to-tr from-orange-500 to-amber-500 text-white p-2.5 rounded-2xl flex items-center justify-center shadow-md">
+                        <i data-lucide="contact-2" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl font-bold text-slate-900 tracking-tight">智生活客資 360 °</h1>
+                            <span class="bg-orange-100 text-orange-700 text-xs px-2.5 py-0.5 rounded-full font-extrabold border border-orange-200">AI 銷售儀表板</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5">精準匹配：今網寬頻、雙網、家電清洗、影視服務、定期清潔</p>
+                    </div>
+                </div>
+                
+                <!-- Demo Customer Switcher -->
+                <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80 shadow-inner">
+                    <span class="text-xs text-slate-500 px-3 font-semibold flex items-center gap-1">
+                        <i data-lucide="users" class="w-3.5 h-3.5"></i> 切換客資 360 情境：
+                    </span>
+                    <button onclick="switchCustomer('cust_1')" id="btn_cust_1" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 bg-white text-orange-600 shadow-sm border border-slate-200">
+                        林大明 (生活應用型 - 三效合一推薦)
+                    </button>
+                    <button onclick="switchCustomer('cust_2')" id="btn_cust_2" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900">
+                        陳美玲 (價格敏感型 - 清潔即將結束)
+                    </button>
+                    <button onclick="switchCustomer('cust_3')" id="btn_cust_3" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900">
+                        張小豪 (冷感防備型 - 清洗滿一年)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- NotebookLM Sales Action Card (TOP MOST PROMINENT AREA) -->
+        <div class="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-600 rounded-3xl p-0.5 shadow-lg overflow-hidden">
+            <div class="bg-white rounded-[22px] p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-100 pb-5">
+                    <div class="space-y-1.5">
+                        <div class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 text-xs px-3 py-1 rounded-full font-bold">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 fill-rose-100"></i> AI 實時聯動 · 推薦同一通電話進行多商品溝通
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-950 flex items-center gap-2" id="radar_target_prod">
+                            家電清洗 + 大雙網 + 影視服務 (三合一溝通)
+                        </h2>
+                        <p class="text-sm text-slate-600" id="radar_opportunity_reason">
+                            家電清洗已滿一年，手機門號6個月內即將到期，且影視服務已到期！建議以高性價比大禮包進行整體包裝。
+                        </p>
+                    </div>
+                    <div class="flex gap-3 shrink-0">
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-center">
+                            <span class="text-[10px] text-slate-400 block font-bold">綜合轉化率</span>
+                            <span class="text-xl font-black text-rose-600" id="radar_conv_rate">94%</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-center">
+                            <span class="text-[10px] text-slate-400 block font-bold">最佳撥打時間</span>
+                            <span class="text-xs font-bold text-slate-700 block mt-1" id="radar_best_time">19:30 - 21:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Pitch Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
+                    <div class="lg:col-span-2 space-y-2">
+                        <span class="text-xs font-extrabold text-rose-600 uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="message-square" class="w-4 h-4"></i> 培訓師推薦：實戰一合一溝通開口話稿 (可複製)
+                        </span>
+                        <div class="bg-rose-50/40 border border-rose-200 rounded-2xl p-4 text-sm text-slate-800 font-medium leading-relaxed shadow-inner max-h-56 overflow-y-auto" id="radar_communication_approach">
+                            「您好，請問是住在 美麗人生社區 的 林大明先生 嗎？我是智生活服務顧問敝姓O。去年您有使用智樂家的家電清洗服務，您還記得嗎？最近換季已經開始變熱了，開冷氣的頻率慢慢變高，您家裡的家電剛好洗滿一年了。是不是有打算再安排清洗保養呢？如果清洗乾淨會比較省電也比較健康喔！(如果客戶真的想要晚一點可以確認時間以後先追蹤)<br><br>「另外大明哥，系統偵測到您在智生活買的影視服務已經到期，且您中華電信門號也快到期了。我們現在剛好有三合一社區特惠：只要安排家電清洗滿三台，每一台立刻再折 100 元！洗完後如果您覺得滿意，幫我們在社區群組發個文分享，我們再加碼送一個月網路！<br><br>另外，想關心一下您的手機門號是預計9月到期對嗎？剛好我們公司有很優惠的雙網方案，您剛好網路也是8月到期，如果我們搭配此方案的話，可以幫您折扣網路續約的資費喔！我試算給您聽好嗎？<br><br>「您之前觀看LiTV看得還習慣嗎？您方案已經到期了，要不要幫您續約呢？」
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/60 flex flex-col justify-between">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-slate-400 block">心智圖聯合推廣要點：</span>
+                            <div class="text-xs text-slate-700 font-semibold space-y-1.5" id="radar_strategy_tags">
+                                <!-- Tags will be dynamically generated -->
+                            </div>
+                        </div>
+                        <button onclick="copySalesPitch()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs transition shadow-sm mt-3">
+                            <i data-lucide="copy" class="w-4 h-4"></i> 複製此整合話稿
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3-Column Grid for Core Categories: 1.客戶資料, 2.今網寬頻, 3.雙網方案 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Column 1: 客戶資料 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                        <i data-lucide="user" class="w-4 h-4 text-orange-500"></i> 客戶基本資料
+                    </h3>
+                    
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-lg font-black" id="cust_avatar">
+                            林
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="text-lg font-bold text-slate-900" id="cust_name">林大明</h4>
+                                <span id="cust_gender" class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">男</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1" id="cust_address">美麗人生社區 · B棟 12樓</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5 text-xs text-slate-600">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">手機號碼</span>
+                            <span class="font-mono font-bold text-slate-900" id="cust_phone">0912-345-678</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">生日 (年月日)</span>
+                            <span class="font-bold text-slate-900" id="cust_birthday">1984-05-12</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">年齡</span>
+                            <span class="font-bold text-slate-900" id="cust_age">42 歲</span>
+                        </div>
+                        <!-- NEW FIELD: 特殊身分 -->
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">特殊身分</span>
+                            <span class="font-bold text-slate-900" id="cust_special_role">社區委員</span>
+                        </div>
+                        <div class="flex flex-col py-1.5 gap-1">
+                            <span class="font-medium text-slate-400">消費服務</span>
+                            <div class="flex flex-wrap gap-1 mt-1" id="cust_services">
+                                <!-- Dynamic consumption tags -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: 今網寬頻 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                        <i data-lucide="wifi" class="w-4 h-4 text-emerald-500"></i> 今網寬頻客戶資訊
+                    </h3>
+
+                    <div class="space-y-2.5 text-xs text-slate-600">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">ISP 客戶編號</span>
+                            <span class="font-mono font-bold text-slate-900" id="isp_sn">BB-872193-Y</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">ISP 客戶類型 (用戶狀態)</span>
+                            <span class="font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded" id="isp_type">正常戶 (續約名單)</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">首次裝機日 / 到期日</span>
+                            <span class="font-bold text-slate-900" id="isp_dates">2021-08-15 / 2026-08-15</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">今網使用年資</span>
+                            <span class="font-bold text-slate-900" id="isp_tenure">5 年</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">客介客次數 (介紹人)</span>
+                            <span class="font-bold text-indigo-600" id="isp_referrals">2 次</span>
+                        </div>
+                        <div class="flex flex-col py-1.5">
+                            <span class="font-bold text-slate-500 block mb-1">歷史客訴紀錄(近5件)</span>
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 max-h-36 overflow-y-auto space-y-2 font-mono text-[10px] text-slate-700" id="isp_complaints_list">
+                                <!-- Dynamic complaints details populate here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: 雙網方案 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                        <i data-lucide="smartphone" class="w-4 h-4 text-indigo-500"></i> 雙網方案客戶資訊
+                    </h3>
+
+                    <div class="space-y-2.5 text-xs text-slate-600">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">雙網方案狀態</span>
+                            <span class="font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded" id="double_net_status">可推薦</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">雙網締結數</span>
+                            <span class="font-bold text-slate-900" id="double_net_count">0 組</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">雙網方案</span>
+                            <span class="font-bold text-slate-900" id="double_net_plan">今網大雙網-中華/遠傳門號案</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">門號合約到期日</span>
+                            <span class="font-bold text-rose-600" id="double_net_expiry">2026-09-15 (到期日六個月內)</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                            <span class="font-medium text-slate-400">客戶現有手機電信</span>
+                            <span class="font-bold text-slate-900" id="double_net_isp">中華電信</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5">
+                            <span class="font-medium text-slate-400">客戶目前門號資費</span>
+                            <span class="font-bold text-slate-900" id="double_net_price">799 元/月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Action Button for [電銷單連結] linked to double_net status -->
+                <div class="mt-4 pt-3.5 border-t border-slate-100" id="double_net_action_container">
+                    <button onclick="openTeleSheet()" class="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold rounded-xl shadow-xs transition-colors">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-indigo-500"></i> [電銷單連結]
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Upselling Products Matrix (STRICTLY FROM SPECIFIED FIELDS) -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <div>
+                    <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-md font-bold mb-1 border border-slate-200 inline-block">
+                        客資 360 ° 各商品明細
+                    </span>
+                    <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2 mt-1">
+                        各商品持有狀態與加購機會
+                    </h3>
+                    <p class="text-xs text-slate-500">限呈現表單內之商品：今網寬頻、雙網方案、家電清洗、影視服務、定期清潔</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-500">
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 已締結 / 持有中</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 可推薦 (契機觸及/續訂名單)</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span> 歷史無資料 / 未締結</span>
+                </div>
+            </div>
+
+            <!-- Product Cards Matrix Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4" id="products_container">
+                <!-- Dynamic cards matching 1. 今網寬頻 2. 雙網方案 3. 家電清洗 4. 影視服務 5. 定期清潔 -->
+            </div>
+        </div>
+
+        <!-- Section: AI User Persona & Interaction Tactics (From training sources) -->
+        <div class="bg-slate-900 rounded-3xl text-white p-6 md:p-8 shadow-xl relative overflow-hidden">
+            <!-- Decorative gradient blur -->
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-orange-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -top-20 w-80 h-80 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex items-center space-x-3 mb-6 relative z-10">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-2xl shadow-md">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold tracking-tight">AI 語音判定：客戶輪廓分析與溝通技巧</h3>
+                    <p class="text-xs text-slate-400">來源對應：《客戶輪廓對應策略（雙網腳本）- 精準判斷表》</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
+                
+                <!-- Box 1: Customer Persona Summary -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block mb-2">秒判斷關鍵特徵</span>
+                        <div class="flex items-center gap-2 mb-3">
+                            <h4 class="text-lg font-bold text-white" id="persona_name">A03 生活應用型</h4>
+                            <span class="bg-orange-500/20 text-orange-400 text-xs px-2.5 py-0.5 rounded font-bold" id="persona_key_term">"問細節"</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed" id="persona_desc">
+                            核心在於確認具體使用場景。重點在於解決日常生活、家電運作及網路使用細節中的各項疑慮。
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-3 pt-4 border-t border-white/10 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">客戶最在乎：</span>
+                            <span class="font-bold text-slate-200 animate-pulse" id="persona_focus">服務品質、售後保固</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">最討厭什麼：</span>
+                            <span class="font-bold text-slate-200" id="persona_dislikes">空洞話術、沒有誠信</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Box 2: Recommended Skills & Dialogues -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/10 lg:col-span-2 space-y-4">
+                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">一擊必殺應對策略</span>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <h5 class="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 業務溝通技巧 (一擊必殺)
+                            </h5>
+                            <p class="text-xs text-slate-300 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5 h-28 overflow-y-auto" id="persona_skills">
+                                將服務與規格優勢完全轉化為「日常生活場景」。例如主動與客戶說明「599方案雖然降速至12M，但日常看YouTube 1080P、導航和日常查資料都絕對順暢夠用。」
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-1.5">
+                            <h5 class="text-xs font-bold text-rose-400 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> 溝通絕對禁忌 (避免踩雷)
+                            </h5>
+                            <p class="text-xs text-slate-300 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5 h-28 overflow-y-auto" id="persona_taboos">
+                                避免使用「保證獨立頻寬」等技術名詞（為防範客訴暫不溝通）。切忌背稿敷衍，若客戶詢問細節，務必精準回答，絕不可含糊帶過。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950/40 px-4 py-3 rounded-xl border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                        <span class="text-slate-400 flex items-center gap-1.5">
+                            <i data-lucide="check-square" class="w-4 h-4 text-orange-500"></i>
+                            本策略符合「銷售溝通八大項標準」，保障電銷締結力道。
+                        </span>
+                        <span class="text-slate-400 font-mono">今網大雙網 QA Team</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 智生活 (Smart Life) 電銷與數據科學部 - 內部訓練專用</p>
+            <p class="mt-1">UI/UX 佈局：客戶基本資料與商品明細 360 度完美呈現</p>
+        </div>
+    </footer>
+
+    <!-- Detail Modal Overlay -->
+    <div id="detail_modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden justify-center items-center z-50 p-4 transition-all duration-300">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 overflow-hidden transform scale-95 transition-transform duration-300" id="modal_content">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-slate-50 to-white">
+                <h3 class="text-base font-black text-slate-900 flex items-center gap-2">
+                    <i data-lucide="receipt-text" class="text-orange-500 w-5 h-5"></i>
+                    <span id="modal_title">商品詳細資料與合約備忘</span>
+                </h3>
+                <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 text-xs" id="modal_body_content">
+                <!-- Dynamic details populate here -->
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2">
+                <!-- MODIFIED: [歷史訂單連結] Button styled consistently with standard layout (equalized size and styling) -->
+                <button onclick="openHistoryOrderLink()" class="border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold py-2 px-4 rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-xs">
+                    <i data-lucide="history" class="w-4 h-4 text-indigo-500"></i> [歷史訂單連結]
+                </button>
+                <button onclick="closeDetailModal()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 px-5 rounded-xl transition-colors">
+                    關閉視窗
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none z-50 border border-slate-700">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+        <span class="text-xs font-medium" id="toast_msg">複製成功！</span>
+    </div>
+
+    <!-- JavaScript Data Binding -->
+    <script>
+        // Data strictly compliant with User Profile - 客資360 and NotebookLM sources
+        const customerDatabase = {
+            cust_1: {
+                // 1. 客戶資料
+                name: "林大明",
+                gender: "男",
+                address: "美麗人生社區 · B棟 12樓",
+                phone: "0912-345-678",
+                birthday: "1984-05-12",
+                age: "42 歲",
+                specialRole: "社區委員", // NEW FIELD
+                services: ["今網寬頻", "家電清洗", "影視服務"],
+                avatarText: "林",
+
+                // 2. 今網寬頻
+                ispSn: "BB-872193-Y",
+                ispType: "正常戶 (續約名單)",
+                ispDates: "2021-08-15 / 2026-08-15",
+                ispTenure: "5 年",
+                ispReferrals: "2 次",
+                
+                // NEW: Historical Complaints mapping to requirements (strictly matches example text)
+                ispComplaints: [
+                    { date: "2025/07/24", type: "已結案其他", desc: "XXXX處理方法：測試　結單：林聖承　2025/07/24" },
+                    { date: "2025/04/17", type: "已結案障礙－無法上網", desc: "XXXXXXXX✦ 有用 AI 客服輔助　結單：林聖承" },
+                    { date: "2025/03/18", type: "已結案諮詢－電腦與網路", desc: "APP一鍵報修，請回電確認，可聯絡時間：中13-15結單：林聖承　2025/03/18" },
+                    { date: "2024/11/13", type: "已結案障礙－無法上網", desc: "1.接觸人：2.問題簡述：3.處理步驟結單：林聖承" },
+                    { date: "2024/08/27", type: "已結案障礙－無法上網", desc: "RD測試批次結單，斷線恢復，障礙原因：設備被偷結單：王逸云　2024/08/27" }
+                ],
+
+                // 3. 雙網方案
+                doubleNetStatus: "可推薦",
+                doubleNetCount: "0 組",
+                doubleNetPlan: "中華電信 (799/月)",
+                doubleNetExpiry: "2026-09-15 (到期日六個月內)",
+                doubleNetIsp: "中華電信",
+                doubleNetPrice: "799 元/月",
+
+                // Radar Opportunity Target
+                radarTarget: "家電清洗 + 大雙網 + 影視服務 (三合一溝通)",
+                radarReason: "💡 核心契機：家電清洗已滿一年 ＋ 門號六個月內到期 ＋ 影視服務已期滿！建議在一通電話內一併促成。",
+                radarConv: "94%",
+                radarBestTime: "平日 19:30 - 21:00 (下班休息時段)",
+                radarApproach: "「您好，請問是住在 美麗人生社區 的 林大明先生 嗎？我是智生活服務顧問敝姓O。去年您有使用智樂家的家電清洗服務，您還記得嗎？最近換季已經開始變熱了，開冷氣的頻率慢慢變高，您家裡的家電剛好洗滿一年了。是不是有打算再安排清洗保養呢？如果清洗乾淨會比較省電也比較健康喔！(如果客戶真的想要晚一點可以確認時間以後先追蹤)<br><br>「另外大明哥，系統偵測到您在智生活買的影視服務已經到期，且您中華電信門號也快到期了。我們現在剛好有三合一社區特惠：只要安排家電清洗滿三台，每一台立刻再折 100 元！洗完後如果您覺得滿意，幫我們在社區群組發個文分享，我們再加碼送一個月網路！<br><br>另外，想關心一下您的手機門號是預計9月到期對嗎？剛好我們公司有很優惠的雙網方案，您剛好網路也是8月到期，如果我們搭配此方案的話，可以幫您折扣網路續約的資費喔！我試算給您聽好嗎？<br><br>「您之前觀看LiTV看得還習慣嗎？您方案已經到期了，要不要幫您續約呢？」",
+                radarStrategyTags: ["一通電話多重加購 (家電+雙網+影視)", "老客戶專屬破千元大禮包", "社區群組發文口碑分享裂變"],
+
+                // 5 Core Products with strict custom fields
+                products: [
+                    { 
+                        name: "今網寬頻", 
+                        status: "held", 
+                        icon: "wifi",
+                        details: [
+                            { label: "客編", value: "BB-872193-Y" },
+                            { label: "狀態", value: "正常使用中" },
+                            { label: "到期日", value: "2026-08-15" }
+                        ],
+                        footer: "使用年資: 5 年",
+                        extended: {
+                            orderId: "26031906325222219",
+                            payment: "ATM轉帳",
+                            notes: "續約老客戶，2年預繳方案，搭配贈送2個月網期。整體滿意度高。",
+                            invoice: "手機載具 (碼: /APP-908234-X)"
+                        }
+                    },
+                    { 
+                        name: "雙網方案", 
+                        status: "recommend", 
+                        icon: "smartphone",
+                        details: [
+                            { label: "締結狀態", value: "未締結 (六個月內到期)" },
+                            { label: "電信業者", value: "中華電信 (799/月)" },
+                            { label: "門號到期", value: "2026-09-15" }
+                        ],
+                        footer: "雙網締結數: 0 組 (可推薦 ⚠️)",
+                        extended: {
+                            orderId: "暫無生效訂單",
+                            payment: "未締結 (預計推薦信用卡線上刷卡)",
+                            notes: "攜碼599方案溝通中，門號預計9月到期，預估補貼金額為3000元，需線上引導拍照上傳身分證以利專員作業。",
+                            invoice: "電子發票 (系統自動開立寄至關聯信箱)"
+                        }
+                    },
+                    { 
+                        name: "家電清洗", 
+                        status: "recommend", 
+                        icon: "wind",
+                        details: [
+                            { label: "上次日期", value: "2025-06-10" },
+                            { label: "上次品牌", value: "日立冷氣" },
+                            { label: "型號 / 費用", value: "RAS-50NJ / $3,500" }
+                        ],
+                        footer: "⚠️ 已洗滿一整年！",
+                        extended: {
+                            orderId: "25061009121544321",
+                            payment: "現金 (技師現場收取)",
+                            notes: "客廳分離式日立冷氣深度清洗，保固一個月。技師回報風道霉味重、風鼓髒污明顯。本次建議引導冷氣+洗衣機雙洗方案。",
+                            invoice: "手機載具 (載具號碼: /XYZ-8888)"
+                        }
+                    },
+                    { 
+                        name: "影視服務", 
+                        status: "recommend", 
+                        icon: "tv",
+                        details: [
+                            { label: "購買日期", value: "2025-12-25" },
+                            { label: "購買方案", value: "LiTV 豪華組合 90天" }
+                        ],
+                        footer: "影視狀態: 已期滿 (可推薦 ⚠️)",
+                        extended: {
+                            orderId: "25122507119283120",
+                            payment: "信用卡自動扣款",
+                            notes: "LiTV 豪華組合 90天，目前合約已期滿。原方案不支援自動續約，建議藉由三合一促銷引導老客戶重啟續約。",
+                            invoice: "雲端發票 (今網智生活愛心捐贈碼)"
+                        }
+                    },
+                    { 
+                        name: "定期清潔", 
+                        status: "held", 
+                        icon: "sparkles",
+                        details: [
+                            { label: "清潔狀態", value: "已派案 (雙週定期)" },
+                            { label: "清潔方案", value: "居家客廳廚房定期清潔" }
+                        ],
+                        footer: "累計總額: $24,000 元",
+                        extended: {
+                            orderId: "25110103112299884",
+                            payment: "信用卡雙週扣款",
+                            notes: "安排雙週一次定期居家精緻清潔。家政師反饋住戶對客廳與廚房的整潔細節要求高，每次服務反饋良好，合約執行順暢。",
+                            invoice: "電子發票 (綁定手機載具: /ABC-1234)"
+                        }
+                    }
+                ],
+
+                // AI Persona Profile Details
+                personaName: "A03 生活應用型",
+                personaKeyTerm: "“問細節”",
+                personaDesc: "核心在於確認使用場景。客戶非常關心資費、網速及家電清洗的具體實用價值，討厭空洞的推銷術語，在意售後專業度與品質保障。",
+                personaFocus: "服務品質、實用細節、保固",
+                personaDislikes: "套路行銷、背稿、隱藏費用",
+                skills: "1. 溝通時，多白話說明，如：「599在各家電信都是24GB的5G，用完之後會轉成4G吃到飽，看1080P影片或導航大概5M就夠了，所以12M對您日常使用絕對很夠！」<br>2. 家電清洗主打「預防保養比壞掉高額維修更劃算」，並承諾清洗後一個月的安心保固。",
+                taboos: "不要主動宣告『保障頻寬』或『保證不降速』，避免引起理解差異客訴。切忌使用不實的保證，需白話解答客戶生活疑慮。"
+            },
+            cust_2: {
+                // 1. 客戶資料
+                name: "陳美玲",
+                gender: "女",
+                address: "幸福御邸社區 · A棟 5樓",
+                phone: "0928-876-543",
+                birthday: "1991-11-20",
+                age: "35 歲",
+                specialRole: "無", // NEW FIELD
+                services: ["今網寬頻", "定期清潔"],
+                avatarText: "陳",
+
+                // 2. 今網寬頻
+                ispSn: "BB-412351-M",
+                ispType: "正常戶 (高流失預警)",
+                ispDates: "2024-03-10 / 2026-07-10",
+                ispTenure: "2 年",
+                ispReferrals: "0 次",
+                
+                // NEW: Historical Complaints mapping to requirements (陳美玲)
+                ispComplaints: [
+                    { date: "2026/05/11", type: "已結案諮詢－續約問題", desc: "客戶來電詢問有沒有更便宜的方案，表示競爭對手價格更有優勢，已結單：陳志豪" },
+                    { date: "2025/11/02", type: "已結案諮詢－定期清潔", desc: "詢問家政師打掃時間可否調整，已協助聯絡排班主管，結單：林聖承" }
+                ],
+
+                // 3. 雙網方案
+                doubleNetStatus: "未締結",
+                doubleNetCount: "0 組",
+                doubleNetPlan: "無",
+                doubleNetExpiry: "2026-10-15 (合約即將到期)",
+                doubleNetIsp: "台灣大哥大",
+                doubleNetPrice: "699 元/月",
+
+                // Radar Opportunity Target
+                radarTarget: "定期清潔服務即將結束",
+                radarReason: "💡 契機點：單次體驗清潔合約即將結束。用戶對價格敏感，此時推廣續訂結合「大雙網門號優惠」，最能用降價攻勢挽回流失機率！",
+                radarConv: "82%",
+                radarBestTime: "中午 12:00 - 13:30 (休息及精算開銷時間)",
+                radarApproach: "「美玲小姐您好！我是智生活服務顧問。您的居家定期清潔服務本週是最後一次服務囉，這段期間感覺如何呢？因為我們也需要規劃家政師的排班，是否要幫您續一年約，讓家政師繼續服務您呢？<br><br>也知道您平常很精打細算，也關心環境的整潔，最近剛好有家電清洗的優惠可以分享給您，請問您上一次冷氣清洗是在什麼時候呢？現在只要清洗滿三台，每台可以折扣100元，還可以加贈一個月網路喔！」",
+                radarStrategyTags: ["定期清潔續訂緊迫性", "攜碼省下$3000利益具現化", "流失客群價格戰挽回"],
+
+                // 5 Core Products with strict custom fields
+                products: [
+                    { 
+                        name: "今網寬頻", 
+                        status: "held", 
+                        icon: "wifi",
+                        details: [
+                            { label: "客編", value: "BB-412351-M" },
+                            { label: "狀態", value: "流失預警待續約" },
+                            { label: "到期日", value: "2026-07-10" }
+                        ],
+                        footer: "使用年資: 2 年",
+                        extended: {
+                            orderId: "24031008129933211",
+                            payment: "信用卡定期 automatic 扣款",
+                            notes: "2年合約即將到期。客戶對預算要求嚴苛，反應競業推銷低價方案，流失防衛心重。",
+                            invoice: "手機載具 (載具號碼: /ML-9988)"
+                        }
+                    },
+                    { 
+                        name: "雙網方案", 
+                        status: "recommend", 
+                        icon: "smartphone",
+                        details: [
+                            { label: "締結狀態", value: "未締結 (高轉化意願)" },
+                            { label: "電信業者", value: "台灣大哥大 (699/月)" },
+                            { label: "門號到期", value: "2026-10-15" }
+                        ],
+                        footer: "推薦攜碼599現省$3,000",
+                        extended: {
+                            orderId: "未建立合約",
+                            payment: "無 (預計推薦中華/遠傳大雙網門號折抵方案)",
+                            notes: "10月到期的台哥大門號為核心切入點，攜碼轉換省下的3000元可用於折抵今網網路費用，創造降價實感。",
+                            invoice: "無 (申辦成功後開立)"
+                        }
+                    },
+                    { 
+                        name: "家電清洗", 
+                        status: "none", 
+                        icon: "wind",
+                        details: [
+                            { label: "上次日期", value: "無歷史資料" },
+                            { label: "上次品牌", value: "無" },
+                            { label: "型號 / 費用", value: "無 / $0" }
+                        ],
+                        footer: "未曾清洗",
+                        extended: {
+                            orderId: "無交易紀錄",
+                            payment: "無",
+                            notes: "歷史未曾訂購。客戶關注預算，僅願意在具有大額滿減或與寬頻贈送疊加時考慮單次預約。",
+                            invoice: "無"
+                        }
+                    },
+                    { 
+                        name: "影視服務", 
+                        status: "none", 
+                        icon: "tv",
+                        details: [
+                            { label: "購買日期", value: "2024-05-01" },
+                            { label: "購買方案", value: "Hami Video 單月體驗 (已過期)" }
+                        ],
+                        footer: "影視狀態: 已到期",
+                        extended: {
+                            orderId: "24050109923812911",
+                            payment: "智生活活動贈品 (0元)",
+                            notes: "先前為新戶申辦贈送的單月體驗，到期後未曾主動續費。對影視娛樂黏度中等。",
+                            invoice: "免稅發票"
+                        }
+                    },
+                    { 
+                        name: "定期清潔", 
+                        status: "recommend", 
+                        icon: "sparkles",
+                        details: [
+                            { label: "清潔狀態", value: "已聯絡 (單次體驗結束)" },
+                            { label: "清潔方案", value: "單次精緻清潔服務" }
+                        ],
+                        footer: "清潔服務即將結束！",
+                        extended: {
+                            orderId: "26051512993811222",
+                            payment: "ATM轉帳",
+                            notes: "單次清潔體驗合約即將結束。客戶對價格敏感，對家政師清洗客廳與浴廁效果滿意，需關懷引導年約長期方案。",
+                            invoice: "手機載具 (載具號碼: /ML-9988)"
+                        }
+                    }
+                ],
+
+                // AI Persona Profile Details
+                personaName: "A02 價格敏感型",
+                personaKeyTerm: "“算帳王”",
+                personaDesc: "核心在於計算純利益與損害。客戶會主動詢問違約金補貼、贈品折現多少，喜歡對比競業方案，期望精算每月的總開銷。",
+                personaFocus: "實質折扣、CP值、違約金補貼",
+                personaDislikes: "隱藏費用、模糊報價、不乾脆",
+                skills: "1. 具現化價值：溝通時不要談抽象品質，直接說「省下多少錢」。例如：「攜碼幫您折抵3,000元，等於您寬頻月租費從370直接降到245元！」<br>2. 善用雙網優惠疊加優勢，說明攜碼的折扣力度遠大於老客戶原電信續約。",
+                taboos: "絕對不要說話不報價，這會讓客戶產生營重的防備心。不准提及「拍照上傳個資與預繳金」等麻煩手續，等建立劃算感後再交代流程。"
+            },
+            cust_3: {
+                // 1. 客戶資料
+                name: "張小豪",
+                gender: "男",
+                address: "璀璨世紀社區 · C棟 3樓",
+                phone: "0935-123-456",
+                birthday: "1997-02-28",
+                age: "29 歲",
+                specialRole: "無", // NEW FIELD
+                services: ["今網寬頻", "影視服務", "雙網方案"],
+                avatarText: "張",
+
+                // 2. 今網寬頻
+                ispSn: "BB-776123-A",
+                ispType: "正常戶 (新客穩固)",
+                ispDates: "2025-03-01 / 2027-03-01",
+                ispTenure: "1 年",
+                ispReferrals: "1 次",
+                
+                // NEW: Historical Complaints mapping to requirements (張小豪)
+                ispComplaints: [
+                    { date: "2025/03/18", type: "已結案諮詢－電腦與網路", desc: "安裝初期詢問如何使用APP一鍵報修與分享器頻段設定，已回電排除障礙，結單：林聖承" }
+                ],
+
+                // 3. 雙網方案
+                doubleNetStatus: "已締結",
+                doubleNetCount: "1 組",
+                doubleNetPlan: "今網大雙網-遠傳599門號合約",
+                doubleNetExpiry: "2027-09-01 (履約中)",
+                doubleNetIsp: "遠傳電信",
+                doubleNetPrice: "599 元/月",
+
+                // Radar Opportunity Target
+                radarTarget: "上一次家電清洗已滿一年",
+                radarReason: "💡 契機點：2025-05-18 清洗國際牌 CS-PX36BA2 冷氣，迄今已滿一週年。新社區住戶家電回購意願高。",
+                radarConv: "90%",
+                radarBestTime: "週末 10:30 - 12:00 (週末早晨，自主性高)",
+                radarApproach: "「您好，請問是住在 璀璨世紀社區 的 張小豪先生 嗎？我是智生活服務顧問敝姓O。去年您有使用智樂家的家電清洗服務，您還記得嗎？最近換季已經開始變熱了，開冷氣的頻率慢慢變高，您家裡的家電剛好洗滿一年了。是不是有打算再安排清洗保養呢？如果清洗乾淨會比較省電也比較健康喔！(如果客戶真的想要晚一點可以確認時間以後先追蹤)<br><br>「只要清洗滿三台，每一台立刻再折 100 元！如果您是今網用戶，我們特別回饋贈送一個月網路。洗完後如果您覺得滿意，幫我們在社區群組發個文分享，我們再加碼送一個月網路。這樣算下來優惠的總價值已經超過一千元，超級劃算！」",
+                radarStrategyTags: ["新社區一週年家電清洗回購", "講述保養時效性與規格數據", "週末特定綠色通道時段排定"],
+
+                // 5 Core Products with strict custom fields
+                products: [
+                    { 
+                        name: "今網寬頻", 
+                        status: "held", 
+                        icon: "wifi",
+                        details: [
+                            { label: "客編", value: "BB-776123-A" },
+                            { label: "狀態", value: "正常使用中" },
+                            { label: "到期日", value: "2027-03-01" }
+                        ],
+                        footer: "使用年資: 1 年",
+                        extended: {
+                            orderId: "25030109123844122",
+                            payment: "線上刷卡 (一次性預繳)",
+                            notes: "新大樓寬頻首辦，一次性刷卡預繳2年資費，對網路傳輸穩定性、延遲度有極高指標要求。",
+                            invoice: "電子發票 (直接開立至註冊 Mail: shaohao97@gmail.com)"
+                        }
+                    },
+                    { 
+                        name: "雙網方案", 
+                        status: "held", 
+                        icon: "smartphone",
+                        details: [
+                            { label: "締結狀態", value: "已締結 (遠傳599案)" },
+                            { label: "手機電信", value: "遠傳電信 (599/月)" },
+                            { label: "門號到期", value: "2027-09-01" }
+                        ],
+                        footer: "雙網締結數: 1 組",
+                        extended: {
+                            orderId: "25030109123844199",
+                            payment: "遠傳電信帳單合併代收",
+                            notes: "辦大雙網599方案(遠傳電信簽約30個月)。寬頻網路因此獲得優惠折扣。合約按時履約中。",
+                            invoice: "手機載具 (碼: /SHAOHAO-77)"
+                        }
+                    },
+                    { 
+                        name: "家電清洗", 
+                        status: "recommend", 
+                        icon: "wind",
+                        details: [
+                            { label: "上次日期", value: "2025-05-18" },
+                            { label: "上次品牌", value: "國際牌冷氣" },
+                            { label: "型號 / 費用", value: "CS-PX36BA2 / $3,200" }
+                        ],
+                        footer: "⚠️ 已洗滿一整年！",
+                        extended: {
+                            orderId: "25051801238812933",
+                            payment: "線上刷卡 (下單時即付清)",
+                            notes: "主臥國際牌高階冷氣深度清洗，技師備註該大樓新居落成一年，家電內部發霉初期。客戶對技師專業保護裝潢施工法滿意。",
+                            invoice: "電子發票 (手機載具: /SHAOHAO-77)"
+                        }
+                    },
+                    { 
+                        name: "影視服務", 
+                        status: "held", 
+                        icon: "tv",
+                        details: [
+                            { label: "購買日期", value: "2025-11-15" },
+                            { label: "購買方案", value: "Hami Video 電影館 180天" }
+                        ],
+                        footer: "影視狀態: 履約使用中",
+                        extended: {
+                            orderId: "25111508219933210",
+                            payment: "線上刷卡",
+                            notes: "Hami Video 電影館半年方案。履約使用中，常用於週末夜間觀看高畫質串流電影。",
+                            invoice: "電子發票 (Mail 送達)"
+                        }
+                    },
+                    { 
+                        name: "定期清潔", 
+                        status: "none", 
+                        icon: "sparkles",
+                        details: [
+                            { label: "清潔狀態", value: "待接單" },
+                            { label: "清潔方案", value: "尚未申辦" }
+                        ],
+                        footer: "無歷史委託記錄",
+                        extended: {
+                            orderId: "無歷史交易記錄",
+                            payment: "無",
+                            notes: "目前無清潔需求。用戶平時為單身貴族獨立居住，習慣自主整理，非核心痛點商品。",
+                            invoice: "無"
+                        }
+                    }
+                ],
+
+                // AI Persona Profile Details
+                personaName: "A01 冷感防備型",
+                personaKeyTerm: "“句點王”",
+                personaDesc: "核心在於客戶單向關閉對話，防備心極高，只回「嗯、喔、不需要」。討厭業務拉交情、說空洞的「很劃算」話術。",
+                personaFocus: "客觀客觀的中立數據、時間節省、不囉唆",
+                personaDislikes: "套交情、強推、浪費時間、不專業",
+                skills: "1. 溝通技巧：不套交情、不套話術、不強推。快速進入重點，說明我們是專屬社區服務，詢問時主動給予對方考慮空間。<br>2. 流程至上，多強調「我們在璀璨世紀社區有統一排程，不耽誤您的時間，3分鐘幫您完成登記」。",
+                taboos: "絕對不可使用傳統推銷的死纏爛打。一旦客戶表現出不耐煩，應主動留下文字方案，在期限前再次以 LINE 確認意願即可。"
+            }
+        };
+
+        // Current active customer ID tracker
+        let currentCustomerId = "cust_1";
+
+        // Toggle Inline Pitch display inside Product Cards
+        function toggleInlinePitch(elementId) {
+            const el = document.getElementById(elementId);
+            if (el.classList.contains('hidden')) {
+                // Hide all other inline pitches first to keep interface tidy
+                document.querySelectorAll('[id^="pitch_block_"]').forEach(item => item.classList.add('hidden'));
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Open Detail Modal Popup
+        function openDetailModal(productName) {
+            const data = customerDatabase[currentCustomerId];
+            const product = data.products.find(p => p.name === productName);
+            
+            if (!product || !product.extended) return;
+            
+            const ext = product.extended;
+            document.getElementById('modal_title').innerText = `【${productName}】 歷史訂單與詳細資料`;
+            
+            let modalBody = `
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2.5">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200/60">
+                            <span class="text-slate-400 font-bold">訂單編號 (Order ID)</span>
+                            <span class="font-mono text-slate-800 font-bold tracking-tight">${ext.orderId}</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200/60">
+                            <span class="text-slate-400 font-bold">繳費方式 (Payment)</span>
+                            <span class="text-slate-800 font-black">${ext.payment}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400 font-bold">發票開立 (Invoice)</span>
+                            <span class="text-slate-800 font-medium">${ext.invoice}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <span class="text-slate-400 font-bold block">📄 系統內部備忘與客服備註：</span>
+                        <p class="bg-amber-50/50 border border-amber-200/60 text-slate-700 p-4.5 rounded-2xl leading-relaxed font-medium">
+                            ${ext.notes}
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modal_body_content').innerHTML = modalBody;
+            
+            // Show modal
+            const modal = document.getElementById('detail_modal');
+            const content = document.getElementById('modal_content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 50);
+        }
+
+        // Close Detail Modal Popup
+        function closeDetailModal() {
+            const modal = document.getElementById('detail_modal');
+            const content = document.getElementById('modal_content');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 150);
+        }
+
+        // NEW: Open Telemarketing Sheet simulation
+        function openTeleSheet() {
+            const data = customerDatabase[currentCustomerId];
+            showToast(`已成功跳轉並聯開今網電銷派案系統：[${data.name}] 的門號專屬電銷名單單據中！`);
+        }
+
+        // NEW: Open History Order Link simulation
+        function openHistoryOrderLink() {
+            const data = customerDatabase[currentCustomerId];
+            showToast(`已直接連線至今網電銷系統資料底座：正在調取 [${data.name}] 的完整歷史成交訂單與備註...`);
+        }
+
+        // Utility to Render Product Cards strictly for 5 categories
+        function renderProducts(products) {
+            const container = document.getElementById('products_container');
+            container.innerHTML = ''; // Clear container
+
+            products.forEach(p => {
+                let cardClass = "";
+                let badge = "";
+                let buttonGroupHtml = "";
+
+                // Get correct speech script based on active customer & product
+                let inlinePitchText = "";
+                if (currentCustomerId === "cust_1") {
+                    if (p.name.includes("家電清洗")) {
+                        inlinePitchText = `「您好，請問是住在 美麗人生社區 的 林大明先生 嗎？我是智生活服務顧問敝姓O。去年您有使用智樂家的家電清洗服務，您還記得嗎？最近換季已經開始變熱了，開冷氣的頻率慢慢變高，您家裡的家電剛好洗滿一年了。是不是有打算再安排清洗保養呢？如果清洗乾淨會比較省電也比較健康喔！(如果客戶真的想要晚一點可以確認時間以後先追蹤)<br><br>「只要清洗滿三台，每一台立刻再折 100 元！如果您是今網用戶，我們特別回饋贈送一個月網路。洗完後如果您覺得滿意，幫我們在社區群組發個文分享，我們再加碼送一個月網路。這樣算下來優惠的總價值已經超過一千元，超級劃算！」`;
+                    } else if (p.name.includes("雙網方案")) {
+                        inlinePitchText = `「大明哥，想關心一下您的手機門號是預計9月到期對嗎？剛好我們公司有很優惠的雙網方案，您剛好網路也是8月到期，如果我們搭配此方案的話，可以幫您折扣網路續約的資費喔！我試算給您聽好嗎？」`;
+                    } else if (p.name.includes("影視服務")) {
+                        inlinePitchText = `「您之前觀看LiTV看得還習慣嗎？您方案已經到期了，要不要幫您續約呢？」`;
+                    } else if (p.name.includes("定期清潔")) {
+                        inlinePitchText = `「大明哥您好！您的居家定期清潔服務正在穩定進行中。如果有任何清潔細節需要調整，或是想加購其他家電清洗，都可以隨時告訴我喔！」`;
+                    }
+                } else if (currentCustomerId === "cust_2") {
+                    if (p.name.includes("定期清潔") || p.name.includes("家電清洗")) {
+                        inlinePitchText = `「美玲小姐您好！我是智生活服務顧問。您的居家定期清潔服務本週是最後一次服務囉，這段期間感覺如何呢？因為我們也需要規劃家政師的排班，是否要幫您續一年約，讓家政師繼續服務您呢？<br><br>也知道您平常很精打細算，也關心環境的整潔，最近剛好有家電清洗的優惠可以分享給您，請問您上一次冷氣清洗是在什麼時候呢？現在只要清洗滿三台，每台可以折扣100元，還可以加贈一個月網路喔！」`;
+                    } else if (p.name.includes("雙網方案")) {
+                        inlinePitchText = `「美玲小姐您好！我們大雙網方案現在非常優惠，您10月到期的台哥大門號攜碼到遠傳，家用寬頻可以現折3000元，省下的錢剛好可以用來抵扣其他居家服務，幫您省下大筆開銷喔！」`;
+                    }
+                } else {
+                    // cust_3 (張小豪)
+                    if (p.name.includes("家電清洗")) {
+                        inlinePitchText = `「您好，請問是住在 璀璨世紀社區 的 張小豪先生 嗎？我是智生活服務顧問敝姓O。去年您有使用智樂家的家電清洗服務，您還記得嗎？最近換季已經開始變熱了，開冷氣的頻率慢慢變高，您家裡的家電剛好洗滿一年了。是不是有打算再安排清洗保養呢？如果清洗乾淨會比較省電也比較健康喔！(如果客戶真的想要晚一點可以確認時間以後先追蹤)<br><br>「只要清洗滿三台，每一台立刻再折 100 元！如果您是今網用戶，我們特別回饋贈送一個月網路。洗完後如果您覺得滿意，幫我們在社區群組發個文分享，我們再加碼送一個月網路。這樣算下來優惠的總價值已經超過一千元，超級劃算！」`;
+                    } else if (p.name.includes("雙網方案")) {
+                        inlinePitchText = `「張先生您好，看到您目前的遠傳599雙網合約運作順暢。如果家裡還有其他門號需要申辦，都可以跟我們說，能為您爭取更多網路月數回饋！」`;
+                    }
+                }
+
+                // Define standard layout buttons (strictly balanced 1:1 format)
+                if (p.status === 'held') {
+                    cardClass = "bg-emerald-50/75 border-emerald-200/80 hover:border-emerald-300";
+                    badge = `<span class="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5 shadow-sm"><i data-lucide="check" class="w-2.5 h-2.5"></i> 已締結</span>`;
+                    buttonGroupHtml = `
+                        <button onclick="openDetailModal('${p.name}')" class="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-xs font-bold rounded-xl shadow-xs transition-colors">
+                            <i data-lucide="receipt-text" class="w-3.5 h-3.5 text-slate-400"></i> 詳細資料
+                        </button>
+                    `;
+                } else if (p.status === 'recommend') {
+                    // Specially styled AMBER/YELLOW card for "可推薦 (契機觸及/續訂名單)" high priority - SCORES REMOVED COMPLETELY
+                    cardClass = "bg-amber-50/70 border-amber-400 hover:border-amber-500 border-2 shadow-sm opportunity-glow animate-pulse-subtle";
+                    badge = `<span class="bg-amber-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm"><i data-lucide="alert-circle" class="w-3 h-3"></i> 可推薦 ⚠️</span>`;
+                    buttonGroupHtml = `
+                        <div class="flex gap-2 w-full">
+                            <button onclick="toggleInlinePitch('pitch_block_${p.name.replace(/\s+/g, '')}')" class="flex-1 flex items-center justify-center gap-1 py-2 px-2 bg-amber-500 hover:bg-amber-600 text-white text-[11px] font-extrabold rounded-xl shadow-xs transition-colors">
+                                <i data-lucide="message-square" class="w-3.5 h-3.5 text-amber-100 fill-amber-100"></i> 銷售話術
+                            </button>
+                            <button onclick="openDetailModal('${p.name}')" class="flex-1 flex items-center justify-center gap-1 py-2 px-2 border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-[11px] font-extrabold rounded-xl shadow-xs transition-colors">
+                                <i data-lucide="receipt-text" class="w-3.5 h-3.5 text-slate-400"></i> 詳細資料
+                            </button>
+                        </div>
+                    `;
+                } else if (p.status === 'upsell') {
+                    // Keep same Amber/Yellow aesthetic for recommended products as they are consolidated under the single yellow tag category now
+                    cardClass = "bg-amber-50/70 border-amber-300/80 hover:border-amber-400 border-2 shadow-sm opportunity-glow";
+                    badge = `<span class="bg-amber-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm"><i data-lucide="zap" class="w-3 h-3"></i> 推薦加購 🌟</span>`;
+                    buttonGroupHtml = `
+                        <div class="flex gap-2 w-full">
+                            <button onclick="toggleInlinePitch('pitch_block_${p.name.replace(/\s+/g, '')}')" class="flex-1 flex items-center justify-center gap-1 py-2 px-2 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-extrabold rounded-xl shadow-xs transition-colors">
+                                <i data-lucide="message-square" class="w-3.5 h-3.5 text-amber-300 fill-amber-300"></i> 銷售話術
+                            </button>
+                            <button onclick="openDetailModal('${p.name}')" class="flex-1 flex items-center justify-center gap-1 py-2 px-2 border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-[11px] font-extrabold rounded-xl shadow-xs transition-colors">
+                                <i data-lucide="receipt-text" class="w-3.5 h-3.5 text-slate-400"></i> 詳細資料
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    cardClass = "bg-white border-slate-200/75 hover:border-slate-300 opacity-65";
+                    badge = `<span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">未申辦</span>`;
+                    buttonGroupHtml = `
+                        <button onclick="openDetailModal('${p.name}')" class="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-xs font-bold rounded-xl shadow-xs transition-colors">
+                            <i data-lucide="receipt-text" class="w-3.5 h-3.5 text-slate-400"></i> 詳細資料
+                        </button>
+                    `;
+                }
+
+                // Render dynamic card rows
+                let detailRows = "";
+                p.details.forEach(det => {
+                    detailRows += `
+                        <div class="flex justify-between items-center py-1 border-b border-dashed border-slate-200/60">
+                            <span class="text-slate-400 font-medium">${det.label}</span>
+                            <span class="text-slate-800 font-bold font-mono text-right text-xs md:text-sm">${det.value}</span>
+                        </div>
+                    `;
+                });
+
+                let pitchHtmlBlock = "";
+                if (p.status === 'recommend' || p.status === 'upsell') {
+                    pitchHtmlBlock = `
+                        <div id="pitch_block_${p.name.replace(/\s+/g, '')}" class="hidden mt-3 bg-amber-50 border border-amber-200 text-slate-800 text-[11px] rounded-xl p-3 leading-relaxed relative">
+                            <div class="absolute -top-1.5 left-6 w-3 h-3 bg-amber-50 border-t border-l border-amber-200 rotate-45"></div>
+                            <div class="font-extrabold text-amber-700 flex items-center gap-1 mb-1">
+                                <i data-lucide="megaphone" class="w-3.5 h-3.5 text-amber-600"></i> 即時開口話稿：
+                            </div>
+                            <p class="font-medium text-slate-700">${inlinePitchText}</p>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="rounded-2xl border p-4 transition-all duration-200 hover:shadow-md ${cardClass} flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="p-2 rounded-xl bg-white shadow-xs border border-slate-100 text-slate-700">
+                                    <i data-lucide="${p.icon}" class="w-5 h-5"></i>
+                                </div>
+                                ${badge}
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-sm tracking-tight mb-2">${p.name}</h4>
+                            <div class="space-y-1 text-xs">
+                                ${detailRows}
+                            </div>
+                            
+                            <!-- Dynamic speech placeholder -->
+                            ${pitchHtmlBlock}
+                        </div>
+                        <div class="mt-3.5 pt-3 border-t border-slate-200/50 flex flex-col justify-between">
+                            <span class="text-[10px] text-orange-600 font-extrabold block tracking-wide mb-2">${p.footer}</span>
+                            ${buttonGroupHtml}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Re-render Lucide icons
+            lucide.createIcons();
+        }
+
+        // Switch Database Values dynamically
+        function switchCustomer(id) {
+            currentCustomerId = id;
+            const data = customerDatabase[id];
+
+            // 1. 客戶資料 Card
+            document.getElementById('cust_avatar').innerText = data.avatarText;
+            document.getElementById('cust_name').innerText = data.name;
+            document.getElementById('cust_gender').innerText = data.gender;
+            document.getElementById('cust_address').innerText = data.address;
+            document.getElementById('cust_phone').innerText = data.phone;
+            document.getElementById('cust_birthday').innerText = data.birthday;
+            document.getElementById('cust_age').innerText = data.age;
+            document.getElementById('cust_special_role').innerText = data.specialRole; // BIND NEW FIELD
+
+            const serviceContainer = document.getElementById('cust_services');
+            serviceContainer.innerHTML = '';
+            data.services.forEach(serv => {
+                serviceContainer.innerHTML += `<span class="bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-md text-[10px] border border-slate-200">${serv}</span>`;
+            });
+
+            // 2. 今網寬頻 Card
+            document.getElementById('isp_sn').innerText = data.ispSn;
+            document.getElementById('isp_type').innerText = data.ispType;
+            document.getElementById('isp_dates').innerText = data.ispDates;
+            document.getElementById('isp_tenure').innerText = data.ispTenure;
+            document.getElementById('isp_referrals').innerText = data.ispReferrals;
+
+            // NEW: Dynamically render Historical Complaints List (last 5)
+            const complaintsContainer = document.getElementById('isp_complaints_list');
+            complaintsContainer.innerHTML = '';
+            if (data.ispComplaints && data.ispComplaints.length > 0) {
+                data.ispComplaints.forEach(item => {
+                    complaintsContainer.innerHTML += `
+                        <div class="pb-1.5 border-b border-slate-200 last:border-0 last:pb-0">
+                            <span class="text-indigo-600 font-bold block">${item.date}</span>
+                            <span class="text-rose-600 font-bold block mt-0.5">${item.type}</span>
+                            <span class="text-slate-600 font-medium block mt-0.5">${item.desc}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                complaintsContainer.innerHTML = `<span class="text-slate-400 font-medium italic block">無客訴紀錄</span>`;
+            }
+
+            // 3. 雙網方案 Card
+            document.getElementById('double_net_status').innerText = data.doubleNetStatus;
+            document.getElementById('double_net_count').innerText = data.doubleNetCount;
+            document.getElementById('double_net_plan').innerText = data.doubleNetPlan;
+            document.getElementById('double_net_expiry').innerText = data.doubleNetExpiry;
+            document.getElementById('double_net_isp').innerText = data.doubleNetIsp;
+            document.getElementById('double_net_price').innerText = data.doubleNetPrice;
+
+            // 4. Update Opportunity Radar (Top prominent area)
+            document.getElementById('radar_target_prod').innerText = data.radarTarget;
+            document.getElementById('radar_opportunity_reason').innerText = data.radarReason;
+            document.getElementById('radar_conv_rate').innerText = data.radarConv;
+            document.getElementById('radar_best_time').innerText = data.radarBestTime;
+            document.getElementById('radar_communication_approach').innerHTML = data.radarApproach;
+
+            const strategyContainer = document.getElementById('radar_strategy_tags');
+            strategyContainer.innerHTML = '';
+            data.radarStrategyTags.forEach(tag => {
+                strategyContainer.innerHTML += `
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        <span>${tag}</span>
+                    </div>`;
+            });
+
+            // 5. Render 5 Product Cards Grid
+            renderProducts(data.products);
+
+            // 6. Update AI Persona & Tactics Section
+            document.getElementById('persona_name').innerText = data.personaName;
+            document.getElementById('persona_key_term').innerText = data.personaKeyTerm;
+            document.getElementById('persona_desc').innerText = data.personaDesc;
+            document.getElementById('persona_focus').innerText = data.personaFocus;
+            document.getElementById('persona_dislikes').innerText = data.personaDislikes;
+            document.getElementById('persona_skills').innerHTML = data.skills;
+            document.getElementById('persona_taboos').innerText = data.taboos;
+
+            // 7. Toggle switch button colors
+            ['cust_1', 'cust_2', 'cust_3'].forEach(cid => {
+                const btn = document.getElementById(`btn_${cid}`);
+                if (cid === id) {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 bg-white text-orange-600 shadow-sm border border-slate-200";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900";
+                }
+            });
+        }
+
+        // Action: Copy Text to Clipboard
+        function copySalesPitch() {
+            const textToCopy = document.getElementById('radar_communication_approach').innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                showToast("一鍵開口合一對話話稿已複製！可以直接用於電銷溝通");
+            } catch (err) {
+                console.error('無法複製', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast_msg').innerText = message;
+            toast.className = toast.className.replace("translate-y-20 opacity-0 pointer-events-none", "translate-y-0 opacity-100");
+            
+            setTimeout(() => {
+                toast.className = toast.className.replace("translate-y-0 opacity-100", "translate-y-20 opacity-0 pointer-events-none");
+            }, 2500);
+        }
+
+        // Initialize default view
+        window.onload = function () {
+            lucide.createIcons();
+            switchCustomer('cust_1');
+        }
+    </script>
+</body>
+</html>
